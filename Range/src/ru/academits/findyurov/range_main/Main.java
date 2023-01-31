@@ -2,11 +2,8 @@ package ru.academits.findyurov.range_main;
 
 import ru.academits.findyurov.range.Range;
 
-import java.util.Scanner;
-
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
 
         Range range1 = new Range(35, 50);
         Range range2 = new Range(20, 40);
@@ -17,16 +14,14 @@ public class Main {
         System.out.println();
 
         System.out.println("range intersections");
-        System.out.println(range1.toString());
+        System.out.println(range1);
         System.out.print("and ");
-        System.out.println(range2.toString());
+        System.out.println(range2);
 
-        Range intersection;
-
-        intersection = range1.getIntersections(range1, range2);
+        Range intersection = range1.getIntersection(range1, range2);
 
         if (intersection != null) {
-            System.out.println(intersection.toString());
+            System.out.println(intersection);
         } else {
             System.out.println("no intersections");
         }
@@ -34,9 +29,9 @@ public class Main {
         System.out.println();
 
         System.out.print("Unification range: ");
-        System.out.println(range1.toString());
+        System.out.println(range1);
         System.out.print("and ");
-        System.out.println(range2.toString());
+        System.out.println(range2);
         Range[] union = range1.getUnion(range1, range2);
 
         Range.arraysPrint(union);
@@ -44,9 +39,9 @@ public class Main {
         System.out.println();
 
         System.out.print("Range difference: ");
-        System.out.println(range1.toString());
+        System.out.println(range1);
         System.out.print("and ");
-        System.out.print(range2.toString());
+        System.out.print(range2);
         System.out.println();
         Range[] difference = range1.getDifference(range1, range2);
 

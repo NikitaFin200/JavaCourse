@@ -38,23 +38,25 @@ public class Range {
         return "(" + from + ", " + to + ")";
     }
 
-    public void print() {
+    /*public void print() {
         System.out.print("(" + from + "," + to + ")" + ", ");
-    }
+    }*/
 
     public static void arraysPrint(Range[] array) {
         if (array.length == 0) {
             System.out.print("[]");
         } else {
             System.out.print("[");
+
             for (Range element : array) {
-                element.print();
+                element.toString();
             }
+
             System.out.print("]");
         }
     }
 
-    public Range getIntersections(Range range1, Range range2) {
+    public Range getIntersection(Range range1, Range range2) {
         if ((range1.to <= range2.from) || (range2.to <= range1.from)) {
             return null;
         }
