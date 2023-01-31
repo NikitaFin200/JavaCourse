@@ -2,6 +2,8 @@ package ru.academits.findyurov.range_main;
 
 import ru.academits.findyurov.range.Range;
 
+import java.util.Arrays;
+
 public class Main {
     public static void main(String[] args) {
 
@@ -18,7 +20,7 @@ public class Main {
         System.out.print("and ");
         System.out.println(range2);
 
-        Range intersection = range1.getIntersection(range1, range2);
+        Range intersection = range1.getIntersection(range2);
 
         if (intersection != null) {
             System.out.println(intersection);
@@ -32,21 +34,23 @@ public class Main {
         System.out.println(range1);
         System.out.print("and ");
         System.out.println(range2);
-        Range[] union = range1.getUnion(range1, range2);
+        Range[] union = range1.getUnion(range2);
 
-        Range.arraysPrint(union);
+        //Arrays.toString(union);
+        Range.printArray(union);
 
         System.out.println();
 
-        System.out.print("Range difference: ");
+        System.out.println("Range difference: ");
         System.out.println(range1);
         System.out.print("and ");
         System.out.print(range2);
         System.out.println();
-        Range[] difference = range1.getDifference(range1, range2);
+        Range[] difference = range1.getDifference(range2);
 
         if (difference.length != 0) {
-            Range.arraysPrint(difference);
+            //Range.arraysPrint(difference);
+            Arrays.toString(difference);
         } else {
             System.out.print("No difference");
         }
