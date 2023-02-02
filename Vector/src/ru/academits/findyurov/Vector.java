@@ -30,7 +30,7 @@ public class Vector {
 
     public Vector(int n, double[] coordinates) {
         if (n <= 0 || coordinates.length == 0) {
-            throw new IllegalArgumentException("Illegal Argument Exception");
+            throw new IllegalArgumentException("Illegal Argument Exception hello");
         }
 
         this.coordinates = Arrays.copyOf(coordinates, n);
