@@ -6,21 +6,18 @@ import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
-
-        Range range1 = new Range(35, 50);
-        Range range2 = new Range(20, 40);
+        Range range1 = new Range(1, 5);
+        Range range = new Range(3, 5);
 
         System.out.println("The length of the range from the initial number to the extreme.");
         System.out.print(range1.getLength());           // метод для вычисления длины диапазона
 
         System.out.println();
 
-        System.out.println("range intersections");
-        System.out.println(range1);
-        System.out.print("and ");
-        System.out.println(range2);
+        System.out.print("range intersections: " + range1);
+        System.out.print(" and " + range + " = ");
 
-        Range intersection = range1.getIntersection(range2);
+        Range intersection = range1.getIntersection(range);
 
         if (intersection != null) {
             System.out.println(intersection);
@@ -30,27 +27,20 @@ public class Main {
 
         System.out.println();
 
-        System.out.print("Unification range: ");
-        System.out.println(range1);
-        System.out.print("and ");
-        System.out.println(range2);
-        Range[] union = range1.getUnion(range2);
+        System.out.print("Unification range: " + range1);
+        System.out.print(" and " + range + " = ");
+        Range[] union = range1.getUnion(range);
 
-        //Arrays.toString(union);
-        Range.printArray(union);
+        System.out.println(Arrays.toString(union));
 
         System.out.println();
 
-        System.out.println("Range difference: ");
-        System.out.println(range1);
-        System.out.print("and ");
-        System.out.print(range2);
-        System.out.println();
-        Range[] difference = range1.getDifference(range2);
+        System.out.print("Range difference: " + range1);
+        System.out.print(" and " + range + " = ");
+        Range[] difference = range1.getDifference(range);
 
         if (difference.length != 0) {
-            //Range.arraysPrint(difference);
-            Arrays.toString(difference);
+            System.out.println(Arrays.toString(difference));
         } else {
             System.out.print("No difference");
         }
