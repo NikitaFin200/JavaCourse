@@ -1,8 +1,8 @@
-package ru.academits.findyurov.Main;
+package ru.academits.findyurov.vector.main;
 
-import ru.academits.findyurov.Vector;
+import ru.academits.findyurov.vector.vector.Vector;
 
-import static ru.academits.findyurov.Vector.*;
+import static ru.academits.findyurov.vector.vector.Vector.*;
 
 public class Main {
     public static void main(String[] args) {

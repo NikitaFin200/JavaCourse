@@ -1,4 +1,4 @@
-package ru.academits.findyurov;
+package ru.academits.findyurov.vector.vector;
 
 import java.util.Arrays;
 
@@ -7,7 +7,7 @@ public class Vector {
 
     public Vector(int n) {
         if (n <= 0) {
-            throw new IllegalArgumentException("Illegal Argument Exception");
+            throw new IllegalArgumentException("Vector ");
         }
 
         coordinates = new double[n];
