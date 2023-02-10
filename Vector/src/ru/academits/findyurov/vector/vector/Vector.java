@@ -5,12 +5,12 @@ import java.util.Arrays;
 public class Vector {
     public double[] coordinates;
 
-    public Vector(int n) {
-        if (n <= 0) {
-            throw new IllegalArgumentException("Vector ");
+    public Vector(int size) {
+        if (size <= 0) {
+            throw new IllegalArgumentException("Vector should be more 1! " + size + " < 1");
         }
 
-        coordinates = new double[n];
+        coordinates = new double[size];
     }
 
     public Vector(Vector vector) {
@@ -22,18 +22,18 @@ public class Vector {
         int n = coordinates.length;
 
         if (n == 0) {
-            throw new IllegalArgumentException("Illegal Argument Exception");
+            throw new IllegalArgumentException("The size of the array cannot be 0");
         }
 
         this.coordinates = Arrays.copyOf(coordinates, n);
     }
 
-    public Vector(int n, double[] coordinates) {
-        if (n <= 0 || coordinates.length == 0) {
-            throw new IllegalArgumentException("Illegal Argument Exception hello");
+    public Vector(int size, double[] coordinates) {
+        if (size <= 0) {
+            throw new IllegalArgumentException("Size cannot be 0");
         }
 
-        this.coordinates = Arrays.copyOf(coordinates, n);
+        this.coordinates = Arrays.copyOf(coordinates, size);
     }
 
     public int getSize() {
@@ -43,70 +43,62 @@ public class Vector {
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("{");
-        int size = getSize();
+        int size = coordinates.length - 1;
 
-        for (int i = 0; i < size - 1; i++) {
+        for (int i = 0; i < size; i++) {
             stringBuilder.append(coordinates[i]).append(", ");
         }
 
-        stringBuilder.append(coordinates[size - 1]).append("}");
+        stringBuilder.append(coordinates[coordinates.length - 1]).append("}");
         return stringBuilder.toString();
     }
 
-    public void addVector(Vector vector) {
-        int size = this.getSize();
-        int vectorSize = vector.getSize();
-
-        if (size < vectorSize) {
-            this.coordinates = Arrays.copyOf(coordinates, vectorSize);
+    public void add(Vector vector) {
+        if (coordinates.length < vector.coordinates.length) {
+            coordinates = Arrays.copyOf(coordinates, vector.coordinates.length);
         }
 
-        for (int i = 0; i < vectorSize; ++i) {
-            this.coordinates[i] += vector.coordinates[i];
+        for (int i = 0; i < vector.coordinates.length; ++i) {
+            coordinates[i] += vector.coordinates[i];
         }
     }
 
-    public void subVector(Vector vector) {
-        int size = this.getSize();
-        int vectorSize = vector.getSize();
-
-        if (size < vectorSize) {
-            this.coordinates = Arrays.copyOf(coordinates, vectorSize);
+    public void subtracting(Vector vector) {
+        if (coordinates.length < vector.coordinates.length) {
+            coordinates = Arrays.copyOf(coordinates, vector.coordinates.length);
         }
 
-        for (int i = 0; i < vectorSize; ++i) {
-            this.coordinates[i] -= vector.coordinates[i];
+        for (int i = 0; i < vector.coordinates.length; ++i) {
+            coordinates[i] -= vector.coordinates[i];
         }
     }
 
-    public void scalarMul(double number) {
-        int size = coordinates.length;
-
-        for (int i = 0; i < size; i++) {
-            this.coordinates[i] *= number;
+    public void multiplicationByScalarNumber(double number) {
+        for (int i = 0; i < coordinates.length; i++) {
+            coordinates[i] *= number;
         }
     }
 
-    public void turnVector() {
-        this.scalarMul(-1.0);
+    public void turn() {
+        this.multiplicationByScalarNumber(-1.0);
     }
 
-    public double length() {
-        double support = 0;
+    public double getLength() {
+        double sum = 0;
 
-        for (double elem : this.coordinates) {
-            support += Math.pow(elem, 2);
+        for (double coordinate : coordinates) {
+            sum += coordinate*coordinate;
         }
 
-        return Math.sqrt(support);
+        return Math.sqrt(sum);
     }
 
     public double getCoordinate(int index) {
         return coordinates[index];
     }
 
-    public void setCoordinate(int index, double elem) {
-        coordinates[index] = elem;
+    public void setCoordinate(int index, double coordinate) {
+        coordinates[index] = coordinate;
     }
 
     public boolean equals(Object obj) {
@@ -118,16 +110,16 @@ public class Vector {
             return false;
         }
 
-        Vector p = (Vector) obj;
+        Vector vector = (Vector) obj;
 
-        if (this.getSize() != p.getSize()) {
+        if (this.getSize() != vector.getSize()) {
             return false;
         }
 
         int size = coordinates.length;
 
         for (int i = 0; i < size; i++) {
-            if (this.getCoordinate(i) != p.getCoordinate(i)) {
+            if (coordinates[i] != vector.getCoordinate(i)) {
                 return false;
             }
         }
@@ -139,19 +131,19 @@ public class Vector {
         return Arrays.hashCode(coordinates);
     }
 
-    public static Vector addVector(Vector vector1, Vector vector2) {
+    public static Vector add(Vector vector1, Vector vector2) {
         Vector vector = new Vector(vector1);
-        vector.addVector(vector2);
+        vector.add(vector2);
         return vector;
     }
 
-    public static Vector subVector(Vector vector1, Vector vector2) {
+    public static Vector subtracting(Vector vector1, Vector vector2) {
         Vector vector = new Vector(vector1);
-        vector.subVector(vector2);
+        vector.subtracting(vector2);
         return vector;
     }
 
-    public static double scalarMul(Vector vector1, Vector vector2) {
+    public static double multiplicationByScalarNumber(Vector vector1, Vector vector2) {
         double mul = 0;
         int size = Math.min(vector1.getSize(), vector2.getSize());
 
