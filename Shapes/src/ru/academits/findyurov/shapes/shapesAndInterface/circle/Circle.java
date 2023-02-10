@@ -1,33 +1,36 @@
-package ru.academits.findyurov.circle;
+package ru.academits.findyurov.shapes.shapesAndInterface.circle;
 
-import ru.academits.findyurov.shape.Shape;
+import ru.academits.findyurov.shapes.shapesAndInterface.shape.Shape;
 
 public class Circle implements Shape {
     private final double radius;
-    private static final int DIAM_COEFFICIENT = 2;
 
     public Circle(double radius) {
         this.radius = radius;
     }
 
+    public double getRadius() {
+        return radius;
+    }
+
     @Override
     public double getWidth() {
-        return DIAM_COEFFICIENT * radius;
+        return 2 * radius;
     }
 
     @Override
     public double getHeight() {
-        return DIAM_COEFFICIENT * radius;
+        return 2 * radius;
     }
 
     @Override
     public double getArea() {
-        return Math.PI * Math.pow(radius, 2);
+        return Math.PI * radius*radius;
     }
 
     @Override
     public double getPerimeter() {
-        return DIAM_COEFFICIENT * Math.PI * radius;
+        return 2 * Math.PI * radius;
     }
 
     @Override
@@ -36,22 +39,22 @@ public class Circle implements Shape {
             return true;
         }
 
-        if (obj == null || obj.getClass() != this.getClass()) {
+        if (obj == null || obj.getClass() != getClass()) {
             return false;
         }
 
-        Circle p = (Circle) obj;
-        return radius == p.radius;
-    }
-
-    @Override
-    public String toString() {
-        return "[" + radius + "]";
+        Circle circle = (Circle) obj;
+        return radius == circle.radius;
     }
 
     @Override
     public int hashCode() {
         final int prime = 37;
         return prime + Double.hashCode(radius);
+    }
+
+    @Override
+    public String toString() {
+        return "[" + radius + "]";
     }
 }

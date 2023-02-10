@@ -1,6 +1,6 @@
-package ru.academits.findyurov.triangle;
+package ru.academits.findyurov.shapes.shapesAndInterface.triangle;
 
-import ru.academits.findyurov.shape.Shape;
+import ru.academits.findyurov.shapes.shapesAndInterface.shape.Shape;
 
 import java.util.Arrays;
 
@@ -21,21 +21,22 @@ public class Triangle implements Shape {
         this.y3 = y3;
     }
 
-    private static double getCutLength(double x1, double x2, double y1, double y2) {
+    private static double getSideLength(double x1, double y1, double x2, double y2) {
         return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
     }
 
     private double getSide1() {
-        return getCutLength(x1, x2, y1, y2);
+        return getSideLength(x1, y1, x2, y2);
     }
 
     private double getSide2() {
-        return getCutLength(x2, x3, y2, y3);
+        return getSideLength(x2, y2, x3, y3);
     }
 
     private double getSide3() {
-        return getCutLength(x3, x1, y3, y1);
+        return getSideLength(x3, y3, x1, y1);
     }
+
     @Override
     public double getWidth() {
         return getMax(x1, x2, x3) - getMin(x1, x2, x3);
@@ -49,13 +50,13 @@ public class Triangle implements Shape {
     @Override
     public double getArea() {
         double semiPerimeter = this.getPerimeter() * 0.5;
-        return Math.sqrt(semiPerimeter * (semiPerimeter - this.getSide1()) *
-                (semiPerimeter - this.getSide2()) * (semiPerimeter - this.getSide3()));
+        return Math.sqrt(semiPerimeter * (semiPerimeter - getSide1())
+                * (semiPerimeter - getSide2()) * (semiPerimeter - getSide3()));
     }
 
     @Override
     public double getPerimeter() {
-        return this.getSide1() + this.getSide2() + this.getSide3();
+        return getSide1() + getSide2() + getSide3();
     }
 
     @Override
@@ -64,19 +65,13 @@ public class Triangle implements Shape {
             return true;
         }
 
-        if (obj == null || obj.getClass() != this.getClass()) {
+        if (obj == null || obj.getClass() != getClass()) {
             return false;
         }
 
-        Triangle p = (Triangle) obj;
-        return (x1 == p.x1) && (x2 == p.x2) && (x3 == p.x3)
-                && (y1 == p.y1) && (y2 == p.y2) && (y3 == p.y3);
-    }
-
-    @Override
-    public String toString() {
-        double[] support = {x1, y1, x2, y2, x3, y3};
-        return Arrays.toString(support);
+        Triangle triangle = (Triangle) obj;
+        return (x1 == triangle.x1) && (x2 == triangle.x2) && (x3 == triangle.x3)
+                && (y1 == triangle.y1) && (y2 == triangle.y2) && (y3 == triangle.y3);
     }
 
     @Override
@@ -93,12 +88,17 @@ public class Triangle implements Shape {
         return hash;
     }
 
+    @Override
+    public String toString() {
+        return "(" + x1 + ";" + y1 + "), (" + x2 + ";" + y2 + "), (" + x3 + ";" + y3 + ")";
+    }
+
     private static double getMax(double... numbers) {
         double max = numbers[0];
 
-        for (double elem : numbers) {
-            if (elem > max) {
-                max = elem;
+        for (double digit : numbers) {
+            if (digit > max) {
+                max = digit;
             }
         }
 
@@ -108,9 +108,9 @@ public class Triangle implements Shape {
     private static double getMin(double... numbers) {
         double min = numbers[0];
 
-        for (double elem : numbers) {
-            if (elem < min) {
-                min = elem;
+        for (double digit : numbers) {
+            if (digit < min) {
+                min = digit;
             }
         }
 
