@@ -14,29 +14,27 @@ public class Main {
 
         System.out.println();
 
-        System.out.print("range intersections: " + range1);
-        System.out.print(" and " + range + " = ");
+        System.out.print("Range intersections: " + range1 + " and " + range + " = ");
+
 
         Range intersection = range1.getIntersection(range);
 
         if (intersection != null) {
             System.out.println(intersection);
         } else {
-            System.out.println("no intersections");
+            System.out.println("No intersections");
         }
 
         System.out.println();
 
-        System.out.print("Unification range: " + range1);
-        System.out.print(" and " + range + " = ");
+        System.out.print("Combining range: " + range1 + " and " + range + " = ");
         Range[] union = range1.getUnion(range);
 
         System.out.println(Arrays.toString(union));
 
         System.out.println();
 
-        System.out.print("Range difference: " + range1);
-        System.out.print(" and " + range + " = ");
+        System.out.print("Range difference: " + range1 + " and " + range + " = ");
         Range[] difference = range1.getDifference(range);
 
         if (difference.length != 0) {

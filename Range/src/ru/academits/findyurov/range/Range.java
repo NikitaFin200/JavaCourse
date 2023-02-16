@@ -35,24 +35,23 @@ public class Range {
 
     @Override
     public String toString() {
-        //System.out.println("("+this.from+", "+this.to+") ");
         return "(" + from + ", " + to + ")";
     }
 
-    public Range getIntersection(Range range2) {
-        if ((to <= range2.from) || (range2.to <= from)) {
+    public Range getIntersection(Range range) {
+        if ((to <= range.from) || (range.to <= from)) {
             return null;
         }
 
-        return new Range(Math.max(this.from, range2.from), Math.min(this.to, range2.to));
+        return new Range(Math.max(from, range.from), Math.min(to, range.to));
     }
 
-    public Range[] getUnion(Range range2) {
-        if ((this.to < range2.from) || (range2.to < this.from)) {
-            return new Range[]{new Range(from, to), new Range(range2.from, range2.to)};
+    public Range[] getUnion(Range range) {
+        if ((to < range.from) || (range.to < from)) {
+            return new Range[]{new Range(from, to), new Range(range.from, range.to)};
         }
 
-        return new Range[]{new Range(Math.min(this.from, range2.from), Math.max(this.to, range2.to))};
+        return new Range[]{new Range(Math.min(from, range.from), Math.max(to, range.to))};
     }
 
     public Range[] getDifference(Range range2) {
@@ -64,7 +63,7 @@ public class Range {
             return new Range[0];
         }
 
-        if (range2.from > this.from && range2.to < this.to) {
+        if (range2.from > from && range2.to < to) {
             return new Range[]{new Range(from, range2.from), new Range(range2.to, to)};
         }
 
