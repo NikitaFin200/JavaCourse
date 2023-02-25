@@ -1,6 +1,4 @@
-package ru.academits.findyurov.shapes.shapesAndInterface.circle;
-
-import ru.academits.findyurov.shapes.shapesAndInterface.shape.Shape;
+package ru.academits.findyurov.shapes.shape;
 
 public class Circle implements Shape {
     private final double radius;
@@ -25,7 +23,7 @@ public class Circle implements Shape {
 
     @Override
     public double getArea() {
-        return Math.PI * radius*radius;
+        return Math.PI * radius * radius;
     }
 
     @Override

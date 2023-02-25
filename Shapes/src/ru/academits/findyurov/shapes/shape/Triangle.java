@@ -1,8 +1,4 @@
-package ru.academits.findyurov.shapes.shapesAndInterface.triangle;
-
-import ru.academits.findyurov.shapes.shapesAndInterface.shape.Shape;
-
-import java.util.Arrays;
+package ru.academits.findyurov.shapes.shape;
 
 public class Triangle implements Shape {
     private final double x1;
@@ -25,15 +21,15 @@ public class Triangle implements Shape {
         return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
     }
 
-    private double getSide1() {
+    public double getLengthSide1() {
         return getSideLength(x1, y1, x2, y2);
     }
 
-    private double getSide2() {
+    public double getLengthSide2() {
         return getSideLength(x2, y2, x3, y3);
     }
 
-    private double getSide3() {
+    public double getLengthSide3() {
         return getSideLength(x3, y3, x1, y1);
     }
 
@@ -49,14 +45,18 @@ public class Triangle implements Shape {
 
     @Override
     public double getArea() {
-        double semiPerimeter = this.getPerimeter() * 0.5;
-        return Math.sqrt(semiPerimeter * (semiPerimeter - getSide1())
-                * (semiPerimeter - getSide2()) * (semiPerimeter - getSide3()));
+        double semiPerimeter = getPerimeter() * 0.5;
+
+        double firstSide = semiPerimeter - getLengthSide1();
+        double secondSide = semiPerimeter - getLengthSide2();
+        double thirdSide = semiPerimeter - getLengthSide3();
+
+        return Math.sqrt(semiPerimeter * firstSide * secondSide * thirdSide);
     }
 
     @Override
     public double getPerimeter() {
-        return getSide1() + getSide2() + getSide3();
+        return getLengthSide1() + getLengthSide2() + getLengthSide3();
     }
 
     @Override
@@ -90,7 +90,7 @@ public class Triangle implements Shape {
 
     @Override
     public String toString() {
-        return "(" + x1 + ";" + y1 + "), (" + x2 + ";" + y2 + "), (" + x3 + ";" + y3 + ")";
+        return "Triangle: " + "(" + x1 + "; " + y1 + "), (" + x2 + "; " + y2 + "), (" + x3 + "; " + y3 + ")";
     }
 
     private static double getMax(double... numbers) {
@@ -108,9 +108,9 @@ public class Triangle implements Shape {
     private static double getMin(double... numbers) {
         double min = numbers[0];
 
-        for (double digit : numbers) {
-            if (digit < min) {
-                min = digit;
+        for (double number : numbers) {
+            if (number < min) {
+                min = number;
             }
         }
 

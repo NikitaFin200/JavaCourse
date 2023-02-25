@@ -1,13 +1,14 @@
 package ru.academits.findyurov.shapes.main;
 
-import ru.academits.findyurov.shapes.shapesAndInterface.shape.Shape;
-import ru.academits.findyurov.shapes.shapesAndInterface.circle.Circle;
-import ru.academits.findyurov.shapes.shapesAndInterface.rectangle.Rectangle;
-import ru.academits.findyurov.shapes.shapesAndInterface.square.Square;
-import ru.academits.findyurov.shapes.shapesAndInterface.triangle.Triangle;
+import ru.academits.findyurov.shapes.shape.Shape;
+import ru.academits.findyurov.shapes.shape.Circle;
+import ru.academits.findyurov.shapes.shape.Rectangle;
+import ru.academits.findyurov.shapes.shape.Square;
+import ru.academits.findyurov.shapes.shape.Triangle;
 
 public class Main {
     public static void main(String[] args) {
+
         Shape square = new Square(2);
         System.out.println("square area = " + square.getArea());
         System.out.println("width = " + square.getWidth());

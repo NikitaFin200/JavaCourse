@@ -1,6 +1,4 @@
-package ru.academits.findyurov.shapes.shapesAndInterface.square;
-
-import ru.academits.findyurov.shapes.shapesAndInterface.shape.Shape;
+package ru.academits.findyurov.shapes.shape;
 
 public class Square implements Shape {
     private final double sideLength;
@@ -25,7 +23,7 @@ public class Square implements Shape {
 
     @Override
     public double getArea() {
-        return Math.pow(sideLength, 2);
+        return sideLength * sideLength;
     }
 
     @Override

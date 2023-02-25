@@ -1,6 +1,4 @@
-package ru.academits.findyurov.shapes.shapesAndInterface.rectangle;
-
-import ru.academits.findyurov.shapes.shapesAndInterface.shape.Shape;
+package ru.academits.findyurov.shapes.shape;
 
 import java.util.Arrays;
 
@@ -8,9 +6,9 @@ public class Rectangle implements Shape {
     private final double width;
     private final double height;
 
-    public Rectangle(double rectangleWidth, double rectangleHeight) {
-        this.width = rectangleWidth;
-        this.height = rectangleHeight;
+    public Rectangle(double width, double height) {
+        this.width = width;
+        this.height = height;
     }
 
     @Override
