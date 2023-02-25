@@ -16,7 +16,6 @@ public class Main {
 
         System.out.print("Range intersections: " + range1 + " and " + range + " = ");
 
-
         Range intersection = range1.getIntersection(range);
 
         if (intersection != null) {
