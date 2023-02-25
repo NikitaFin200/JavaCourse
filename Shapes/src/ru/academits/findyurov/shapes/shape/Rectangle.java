@@ -56,7 +56,6 @@ public class Rectangle implements Shape {
 
     @Override
     public String toString() {
-        double[] array = {width, height};
-        return Arrays.toString(array);
+        return "Rectangle" + "[" + "width: " + width + ", " + "height: " + height + "]";
     }
 }
