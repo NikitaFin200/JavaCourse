@@ -1,8 +1,8 @@
 package ru.academits.findyurov.matrix.main;
 
-import ru.academits.findyurov.vector.vector.Vector;
+import ru.academits.findyurov.vector.Vector;
 
-import static ru.academits.findyurov.vector.vector.Vector.*;
+import static ru.academits.findyurov.vector.Vector.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -26,7 +26,7 @@ public class Main {
         Vector vector3 = new Vector(support);
         System.out.println("Its dimension = " + vector3.getSize());
         System.out.println("Its length = " + vector3.getLength());
-        vector3.subtracting(vector1);
+        vector3.subtract(vector1);
         System.out.println("vector 3 = vector 3 - vector 1 = " + vector3.toString());
         System.out.println("vector 1 = " + vector1.toString());
         System.out.println();
@@ -41,21 +41,21 @@ public class Main {
         System.out.println();
 
         int alpha = 6;
-        vector1.multiplicationByScalarNumber(6);
+        vector1.multiplyByScalar(6);
         System.out.println("vector 1 * " + alpha + " = " + vector1.toString());
         vector1.turn();
         System.out.println("vector 1 = expanded vector vector1 * " + alpha + " this " + vector1.toString());
         System.out.println();
 
         System.out.println("static methods");
-        Vector vector5 = new Vector(add(vector1, vector3));
+        Vector vector5 = new Vector(getSum(vector1, vector3));
         System.out.println("vector 5 = vector 1 + vector 3 = " + vector5.toString());
 
-        Vector vector6 = new Vector(subtracting(vector1, vector3));
+        Vector vector6 = new Vector(getDifference(vector1, vector3));
         System.out.println("vector 6 = vector 1 - vector 3 = " + vector6.toString());
 
         vector6.add(new Vector(new double[]{0, 0, 0, 0, 0}));
         System.out.println("vector 6 = " + vector6.toString());
-        System.out.println("vector 5 * vector 6 = " + multiplicationByScalarNumber(vector5, vector6));
+        System.out.println("vector 5 * vector 6 = " + multiplyByScalar(vector5, vector6));
     }
 }

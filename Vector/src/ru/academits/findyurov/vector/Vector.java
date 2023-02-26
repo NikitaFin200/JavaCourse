@@ -1,4 +1,4 @@
-package ru.academits.findyurov.vector.vector;
+package ru.academits.findyurov.vector;
 
 import java.util.Arrays;
 
@@ -7,30 +7,27 @@ public class Vector {
 
     public Vector(int size) {
         if (size <= 0) {
-            throw new IllegalArgumentException("Vector should be more 1! " + size + " < 1");
+            throw new IllegalArgumentException("Vector should be more than 1! " + size + " < 1");
         }
 
         coordinates = new double[size];
     }
 
     public Vector(Vector vector) {
-        int n = vector.getSize();
-        coordinates = Arrays.copyOf(vector.coordinates, n);
+        coordinates = Arrays.copyOf(vector.coordinates, vector.coordinates.length);
     }
 
     public Vector(double[] coordinates) {
-        int n = coordinates.length;
-
-        if (n == 0) {
+        if (coordinates.length == 0) {
             throw new IllegalArgumentException("The size of the array cannot be 0");
         }
 
-        this.coordinates = Arrays.copyOf(coordinates, n);
+        this.coordinates = Arrays.copyOf(coordinates, coordinates.length);
     }
 
     public Vector(int size, double[] coordinates) {
         if (size <= 0) {
-            throw new IllegalArgumentException("Size cannot be 0");
+            throw new IllegalArgumentException("The size cannot be less than or equal to 0. Your size = " + size);
         }
 
         this.coordinates = Arrays.copyOf(coordinates, size);
@@ -40,16 +37,17 @@ public class Vector {
         return coordinates.length;
     }
 
+    @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("{");
-        int size = coordinates.length - 1;
+        int maxIndex = coordinates.length - 1;
 
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < maxIndex; i++) {
             stringBuilder.append(coordinates[i]).append(", ");
         }
 
-        stringBuilder.append(coordinates[coordinates.length - 1]).append("}");
+        stringBuilder.append(coordinates[maxIndex]).append("}");
         return stringBuilder.toString();
     }
 
@@ -63,7 +61,7 @@ public class Vector {
         }
     }
 
-    public void subtracting(Vector vector) {
+    public void subtract(Vector vector) {
         if (coordinates.length < vector.coordinates.length) {
             coordinates = Arrays.copyOf(coordinates, vector.coordinates.length);
         }
@@ -73,21 +71,21 @@ public class Vector {
         }
     }
 
-    public void multiplicationByScalarNumber(double number) {
+    public void multiplyByScalar(double number) {
         for (int i = 0; i < coordinates.length; i++) {
             coordinates[i] *= number;
         }
     }
 
     public void turn() {
-        this.multiplicationByScalarNumber(-1.0);
+        this.multiplyByScalar(-1.0);
     }
 
     public double getLength() {
         double sum = 0;
 
         for (double coordinate : coordinates) {
-            sum += coordinate*coordinate;
+            sum += coordinate * coordinate;
         }
 
         return Math.sqrt(sum);
@@ -101,25 +99,24 @@ public class Vector {
         coordinates[index] = coordinate;
     }
 
+    @Override
     public boolean equals(Object obj) {
         if (obj == this) {
             return true;
         }
 
-        if (obj == null || obj.getClass() != this.getClass()) {
+        if (obj == null || obj.getClass() != getClass()) {
             return false;
         }
 
         Vector vector = (Vector) obj;
 
-        if (this.getSize() != vector.getSize()) {
+        if (coordinates.length != vector.coordinates.length) {
             return false;
         }
 
-        int size = coordinates.length;
-
-        for (int i = 0; i < size; i++) {
-            if (coordinates[i] != vector.getCoordinate(i)) {
+        for (int i = 0; i < coordinates.length; i++) {
+            if (coordinates[i] != vector.coordinates[i]) {
                 return false;
             }
         }
@@ -127,23 +124,24 @@ public class Vector {
         return true;
     }
 
+    @Override
     public int hashCode() {
         return Arrays.hashCode(coordinates);
     }
 
-    public static Vector add(Vector vector1, Vector vector2) {
-        Vector vector = new Vector(vector1);
-        vector.add(vector2);
-        return vector;
+    public static Vector getSum(Vector vector1, Vector vector2) {
+        Vector result = new Vector(vector1);
+        result.add(vector2);
+        return result;
     }
 
-    public static Vector subtracting(Vector vector1, Vector vector2) {
-        Vector vector = new Vector(vector1);
-        vector.subtracting(vector2);
-        return vector;
+    public static Vector getDifference(Vector vector1, Vector vector2) {
+        Vector result = new Vector(vector1);
+        result.subtract(vector2);
+        return result;
     }
 
-    public static double multiplicationByScalarNumber(Vector vector1, Vector vector2) {
+    public static double multiplyByScalar(Vector vector1, Vector vector2) {
         double mul = 0;
         int size = Math.min(vector1.getSize(), vector2.getSize());
 

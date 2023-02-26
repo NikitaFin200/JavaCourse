@@ -1,6 +1,6 @@
 package ru.academits.findyurov.vector.main;
 
-import ru.academits.findyurov.vector.vector.Vector;
+import ru.academits.findyurov.vector.Vector;
 
 public class Main {
     public static void main(String[] args) {
@@ -24,7 +24,7 @@ public class Main {
         Vector vector3 = new Vector(array);
         System.out.println("Its dimension = " + vector3.getSize());
         System.out.println("Its length = " + vector3.getLength());
-        vector3.subtracting(vector1);
+        vector3.subtract(vector1);
         System.out.println("vector 3 = vector 3 - vector 1 = " + vector3);
         System.out.println("vector 1 = " + vector1);
         System.out.println();
@@ -39,21 +39,21 @@ public class Main {
         System.out.println();
 
         int scalar = 6;
-        vector1.multiplicationByScalarNumber(6);
+        vector1.multiplyByScalar(6);
         System.out.println("vector 1 * " + scalar + " = " + vector1);
         vector1.turn();
         System.out.println("vector 1 = expanded vector vector1 * " + scalar + " this " + vector1);
         System.out.println();
 
         System.out.println("static methods");
-        Vector vector5 = new Vector(Vector.add(vector1, vector3));
+        Vector vector5 = new Vector(Vector.getSum(vector1, vector3));
         System.out.println("vector 5 = vector 1 + vector 3 = " + vector5);
 
-        Vector vector6 = new Vector(Vector.subtracting(vector1, vector3));
+        Vector vector6 = new Vector(Vector.getDifference(vector1, vector3));
         System.out.println("vector 6 = vector 1 - vector 3 = " + vector6);
 
         vector6.add(new Vector(new double[]{0, 0, 0, 0, 0}));
         System.out.println("vector 6 = " + vector6);
-        System.out.println("vector 5 * vector 6 = " + Vector.multiplicationByScalarNumber(vector5, vector6));
+        System.out.println("vector 5 * vector 6 = " + Vector.multiplyByScalar(vector5, vector6));
     }
 }

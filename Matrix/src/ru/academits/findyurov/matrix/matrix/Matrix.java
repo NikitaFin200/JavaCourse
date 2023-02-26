@@ -1,10 +1,10 @@
 package ru.academits.findyurov.matrix.matrix;
 
-import ru.academits.findyurov.vector.vector.Vector;
+import ru.academits.findyurov.vector.Vector;
 
 import java.util.Arrays;
 
-import static ru.academits.findyurov.vector.vector.Vector.multiplicationByScalarNumber;
+import static ru.academits.findyurov.vector.Vector.multiplyByScalar;
 
 public class Matrix {
     private double[] coordinates;
@@ -153,7 +153,7 @@ public class Matrix {
     public void scalarMultiplication(double scalar) {
         int rowCount = this.getRowCount();
         for (int i = 0; i < rowCount; ++i) {
-            this.row[i].multiplicationByScalarNumber(scalar);
+            this.row[i].multiplyByScalar(scalar);
         }
     }
 
@@ -251,7 +251,7 @@ public class Matrix {
         }
 
         for (int i = 0; i < height; ++i) {
-            Vector vector = Vector.add(this.getRow(i), matrix.getRow(i));
+            Vector vector = Vector.getSum(this.getRow(i), matrix.getRow(i));
             this.setRow(i, vector);
         }
     }
@@ -274,7 +274,7 @@ public class Matrix {
         }
 
         for (int i = 0; i < height; ++i) {
-            Vector vector = Vector.subtracting(this.getRow(i), matrix.getRow(i));
+            Vector vector = Vector.getDifference(this.getRow(i), matrix.getRow(i));
             this.setRow(i, vector);
         }
     }
@@ -300,7 +300,7 @@ public class Matrix {
 
         for (int i = 0; i < rowCount; ++i) {
             for (int j = 0; j < rowCount; ++j) {
-                double support = multiplicationByScalarNumber(matrix1.getRow(i), matrix2.getColumn(j));
+                double support = multiplyByScalar(matrix1.getRow(i), matrix2.getColumn(j));
                 mul.row[i].setCoordinate(j, support);
             }
         }
