@@ -46,10 +46,10 @@ public class Main {
         System.out.println();
 
         System.out.println("static methods");
-        Vector vector5 = new Vector(Vector.getSum(vector1, vector3));
+        Vector vector5 = Vector.getSum(vector1, vector3);
         System.out.println("vector 5 = vector 1 + vector 3 = " + vector5);
 
-        Vector vector6 = new Vector(Vector.getDifference(vector1, vector3));
+        Vector vector6 = Vector.getDifference(vector1, vector3);
         System.out.println("vector 6 = vector 1 - vector 3 = " + vector6);
 
         vector6.add(new Vector(new double[]{0, 0, 0, 0, 0}));

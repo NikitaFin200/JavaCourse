@@ -142,13 +142,13 @@ public class Vector {
     }
 
     public static double multiplyByScalar(Vector vector1, Vector vector2) {
-        double mul = 0;
-        int size = Math.min(vector1.getSize(), vector2.getSize());
+        double result = 0;
+        int minimalSize = Math.min(vector1.getSize(), vector2.getSize());
 
-        for (int i = 0; i < size; ++i) {
-            mul += vector1.coordinates[i] * vector2.coordinates[i];
+        for (int i = 0; i < minimalSize; ++i) {
+            result += vector1.coordinates[i] * vector2.coordinates[i];
         }
 
-        return mul;
+        return result;
     }
 }
