@@ -68,7 +68,7 @@ public class Main {
         System.out.println("Multiplying a matrix by a vector ");
         Vector vector = new Vector(new double[]{0, 0, 0, 1});
         System.out.println(vector.toString() + ":");
-        Vector mulOnVec = matrix2.mul(vector);
+        Vector mulOnVec = matrix2.multiply(vector);
         System.out.println(mulOnVec.toString());
         System.out.println();
 
@@ -78,23 +78,23 @@ public class Main {
         System.out.println(matrix4.toString());
 
         System.out.println("Let's add the matrix 2 and 3 statically:");
-        Matrix matrix5 = Matrix.sum(matrix2, matrix3);
+        Matrix matrix5 = Matrix.getSum(matrix2, matrix3);
         System.out.println(matrix5.toString());
         System.out.println();
 
         System.out.println("Subtract matrix 3 from matrix 2 (statically):");
-        Matrix matrix6 = Matrix.sub(matrix2, matrix3);
+        Matrix matrix6 = Matrix.getSubtraction(matrix2, matrix3);
         System.out.println(matrix6.toString());
         System.out.println();
 
         System.out.println("Let's add matrix 3 to matrix 2:");
-        matrix2.sum(matrix3);
+        matrix2.add(matrix3);
         System.out.println("Now matrix 2 has the form: ");
         System.out.println(matrix2.toString());
         System.out.println();
 
         System.out.println("Now we subtract matrix 3 from the new matrix 2:");
-        matrix2.sub(matrix3);
+        matrix2.subtract(matrix3);
         System.out.println("Now matrix 2 has the form: ");
         System.out.println(matrix2.toString());
         System.out.println();
@@ -107,7 +107,7 @@ public class Main {
                 {0, 0, 0, 1}
         });
 
-        Matrix matrix7 = Matrix.mul(matrix1, matrix3);
+        Matrix matrix7 = Matrix.getComposition(matrix1, matrix3);
         System.out.println(matrix7.toString());
     }
 }

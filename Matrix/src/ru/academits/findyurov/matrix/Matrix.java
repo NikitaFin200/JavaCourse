@@ -140,16 +140,22 @@ public class Matrix {
 
     public double getDeterminant() {
         int quantityRows = getRowsCount();
+        int quantityColumns = getColumnsCount();
 
-        if (quantityRows != getColumnsCount()) {
-            throw new IllegalArgumentException("Determinant can be computed from the elements of a square matrix only");
+        if (quantityRows != quantityColumns) {
+            throw new UnsupportedOperationException("Determinant can be computed from the elements of a square matrix only. quantityRows = " + quantityRows + ", quantityColumns = " + quantityColumns);
         }
+
         if (quantityRows == 1) {
             return getRow(0).getCoordinate(0);
-        } else if (quantityRows == 2) {
+        }
+
+        if (quantityRows == 2) {
             return getRow(0).getCoordinate(0) * getRow(1).getCoordinate(1) -
                     getRow(0).getCoordinate(1) * getRow(1).getCoordinate(0);
-        } else if (quantityRows == 3) {
+        }
+
+        if (quantityRows == 3) {
             return getRow(0).getCoordinate(0) * getRow(1).getCoordinate(1) *
                     getRow(2).getCoordinate(2) + getRow(2).getCoordinate(0) *
                     getRow(0).getCoordinate(1) * getRow(1).getCoordinate(2) +
@@ -159,36 +165,37 @@ public class Matrix {
                     getRow(1).getCoordinate(0) * getRow(0).getCoordinate(1) *
                             getRow(2).getCoordinate(2) - getRow(0).getCoordinate(0) *
                     getRow(2).getCoordinate(1) * getRow(1).getCoordinate(2);
-        } else {
-            int decompositionIndex = 0;
-            double determinant = 0;
-
-            for (int i = 0; i < quantityRows; i++) {
-                determinant += Math.pow(-1, i) * getRow(i).getCoordinate(decompositionIndex) *
-                        getMinor(this, i, decompositionIndex);
-            }
-
-            return determinant;
         }
+
+        int decompositionIndex = 0;
+        double determinant = 0;
+
+        for (int i = 0; i < quantityRows; i++) {
+            determinant += Math.pow(-1, i) * getRow(i).getCoordinate(decompositionIndex) *
+                    getMatrixDeterminant(this, i, decompositionIndex);
+        }
+
+        return determinant;
     }
 
-    private static double getMinor(Matrix matrix, int firstIndex, int secondIndex) {
-        int length = matrix.getRowsCount() - 1;
-        Matrix result = new Matrix(length, length);
+    private static double getMatrixDeterminant(Matrix matrix, int indexRow, int indexColumn) {
+        int size = matrix.getRowsCount() - 1;
+        Matrix result = new Matrix(size, size);
 
-        for (int i = 0, i2 = 0; i < length + 1; i++) {
-            for (int j = 0, j2 = 0; j < length + 1; j++) {
-                if (i != firstIndex && j != secondIndex) {
-                    result.rows[i2].setCoordinate(j2, matrix.getRow(i).getCoordinate(j));
-                    j2++;
+        for (int i = 0, checkColumn = 0; i < matrix.getRowsCount(); i++) {
+            for (int j = 0, checkRow = 0; j < matrix.getRowsCount(); j++) {
+                if (i != indexRow && j != indexColumn) {
+                    result.rows[checkColumn].setCoordinate(checkRow, matrix.getRow(i).getCoordinate(j));
+                    checkRow++;
 
-                    if (j2 == length) {
-                        j2 = 0;
-                        i2++;
+                    if (checkRow == size) {
+                        checkRow = 0;
+                        checkColumn++;
                     }
                 }
             }
         }
+
         return result.getDeterminant();
     }
 
@@ -199,93 +206,102 @@ public class Matrix {
         int size = getRowsCount();
 
         for (int i = 0; i < size - 1; i++) {
-            stringBuilder.append(rows[i].toString()).append(",\n");
+            stringBuilder.append(rows[i]).append(",");
         }
 
         stringBuilder.append(rows[size - 1]).append("}");
         return stringBuilder.toString();
     }
 
-    public Vector mul(Vector vector) {
+    public Vector multiply(Vector vector) {
         int quantityRows = getRowsCount();
         int quantityColumns = getColumnsCount();
-        Vector mulResult = new Vector(quantityRows);
+        Vector multiplyResult = new Vector(quantityRows);
+
+        if (quantityRows != getRowsCount() || quantityColumns != getColumnsCount()) {
+            throw new IllegalArgumentException("Illegal Argument Exception. quantityRows = " + quantityRows + "quantityColumns" + quantityColumns);
+        }
 
         for (int i = 0; i < quantityRows; ++i) {
-            double support = 0;
+            double sum = 0;
 
             for (int j = 0; j < quantityColumns; ++j) {
-                support += getRow(i).getCoordinate(j) * vector.getCoordinate(j);
+                sum += getRow(i).getCoordinate(j) * vector.getCoordinate(j);
             }
 
-            mulResult.setCoordinate(i, support);
+            multiplyResult.setCoordinate(i, sum);
         }
 
-        return mulResult;
+        return multiplyResult;
     }
 
-    public void sum(Matrix matrix) {
-        int height = getRowsCount();
-
-        if (height != matrix.getRowsCount() || getColumnsCount() != matrix.getColumnsCount()) {
-            throw new IllegalArgumentException("Illegal Argument Exception");
+    public void add(Matrix matrix) {
+        if (rows.length != matrix.getRowsCount() || getColumnsCount() != matrix.getColumnsCount()) {
+            throw new IllegalArgumentException("Illegal Argument Exception. height = " + rows.length);
         }
 
-        for (int i = 0; i < height; ++i) {
-            Vector vector = Vector.getSum(getRow(i), matrix.getRow(i));
-            setRow(i, vector);
+        for (int i = 0; i < rows.length; ++i) {
+            setRow(i, Vector.getSum(new Vector(rows[i]), matrix.getRow(i)));
         }
     }
 
-    public static Matrix sub(Matrix matrix1, Matrix matrix2) {
+    public void subtract(Matrix matrix) {
+        if (rows.length != matrix.getRowsCount() || getColumnsCount() != matrix.getColumnsCount()) {
+            throw new IllegalArgumentException("Illegal Argument Exception. height = " + rows.length);
+        }
+        Vector vector = new Vector(rows.length);
+
+        for (int i = 0; i < rows.length; ++i) {
+            setRow(i, Vector.getDifference(new Vector(rows[i]), matrix.getRow(i)));
+        }
+    }
+
+    public static Matrix getSubtraction(Matrix matrix1, Matrix matrix2) {
         if (matrix1.getRowsCount() != matrix2.getRowsCount() || matrix1.getColumnsCount() != matrix2.getColumnsCount()) {
-            throw new IllegalArgumentException("Illegal Argument Exception");
+            throw new IllegalArgumentException("Matrix size error. matrix1.getRowsCount() = " + matrix1.getRowsCount() +
+                    "matrix2.getRowsCount()" + matrix2.getRowsCount() +
+                    "matrix1.getColumnsCount()" + matrix1.getColumnsCount() +
+                    "matrix2.getColumnsCount()" + matrix1.getColumnsCount());
         }
 
-        Matrix matrix = new Matrix(matrix1);
-        matrix.sub(matrix2);
-        return matrix;
+        Matrix result = new Matrix(matrix1);
+        result.subtract(matrix2);
+        return result;
     }
 
-    public void sub(Matrix matrix) {
-        int height = getRowsCount();
 
-        if (height != matrix.getRowsCount() || getColumnsCount() != matrix.getColumnsCount()) {
-            throw new IllegalArgumentException("Illegal Argument Exception");
-        }
-
-        for (int i = 0; i < height; ++i) {
-            Vector vector = Vector.getDifference(getRow(i), matrix.getRow(i));
-            setRow(i, vector);
-        }
-    }
-
-    public static Matrix sum(Matrix matrix1, Matrix matrix2) {
+    public static Matrix getSum(Matrix matrix1, Matrix matrix2) {
         if (matrix1.getRowsCount() != matrix2.getRowsCount() || matrix1.getColumnsCount() != matrix2.getColumnsCount()) {
-            throw new IllegalArgumentException("Illegal Argument Exception");
+            throw new IllegalArgumentException("Matrix size error. matrix1.getRowsCount() = " + matrix1.getRowsCount() +
+                    "matrix2.getRowsCount()" + matrix2.getRowsCount() +
+                    "matrix1.getColumnsCount()" + matrix1.getColumnsCount() +
+                    "matrix2.getColumnsCount()" + matrix1.getColumnsCount());
         }
 
-        Matrix matrix = new Matrix(matrix1);
-        matrix.sum(matrix2);
-        return matrix;
+        Matrix result = new Matrix(matrix1);
+        result.add(matrix2);
+        return result;
     }
 
-    public static Matrix mul(Matrix matrix1, Matrix matrix2) {
-        int rowCount = matrix1.getRowsCount();
+    public static Matrix getComposition(Matrix matrix1, Matrix matrix2) {
+        int rowCount1 = matrix1.getRowsCount();
+        int rowCount2 = matrix2.getRowsCount();
 
-        if (rowCount != matrix2.getColumnsCount()) {
-            throw new IllegalArgumentException("Illegal Argument Exception");
+        if (matrix1.getRowsCount() != matrix2.getRowsCount() || matrix1.getColumnsCount() != matrix2.getColumnsCount()) {
+            throw new IllegalArgumentException("Matrix size error. matrix1.getRowsCount() = " + matrix1.getRowsCount() +
+                    "matrix2.getRowsCount() = " + matrix2.getRowsCount() +
+                    "matrix1.getColumnsCount()" + matrix1.getColumnsCount() +
+                    "matrix2.getColumnsCount()" + matrix2.getColumnsCount());
         }
 
-        Matrix mul = new Matrix(rowCount, rowCount);
+        Matrix composition = new Matrix(rowCount1, rowCount2);
 
-        for (int i = 0; i < rowCount; ++i) {
-            for (int j = 0; j < rowCount; ++j) {
-                double support = multiplyByScalar(matrix1.getRow(i), matrix2.getColumn(j));
-                mul.rows[i].setCoordinate(j, support);
+        for (int i = 0; i < rowCount1; ++i) {
+            for (int j = 0; j < rowCount2; ++j) {
+                composition.rows[i].setCoordinate(j, multiplyByScalar(matrix1.getRow(i), matrix2.getColumn(j)));
             }
         }
 
-        return mul;
+        return composition;
     }
 }
