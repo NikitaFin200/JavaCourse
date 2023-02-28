@@ -2,9 +2,6 @@ package ru.academits.findyurov.matrix;
 
 import ru.academits.findyurov.vector.Vector;
 
-import java.io.IOException;
-import java.util.Arrays;
-
 import static ru.academits.findyurov.vector.Vector.multiplyByScalar;
 
 public class Matrix {
@@ -95,15 +92,15 @@ public class Matrix {
         return new Vector(rows[index]);
     }
 
-    public void setRow(int i, Vector vector) {
-        if (i < 0 || i >= getRowsCount()) {
+    public void setRow(int index, Vector vector) {
+        if (index < 0 || index >= getRowsCount()) {
             throw new IllegalArgumentException("Illegal index of rows");
         }
 
         int size = vector.getSize();
 
-        for (int j = 0; j < size; ++j) {
-            rows[i].setCoordinate(j, vector.getCoordinate(j));
+        for (int i = 0; i < size; ++i) {
+            rows[index].setCoordinate(i, vector.getCoordinate(i));
         }
     }
 
@@ -122,23 +119,22 @@ public class Matrix {
         return vector;
     }
 
-    public void transposition() {
+    public void transpose() {
         int rowsCount = getRowsCount();
         int columnsCount = getColumnsCount();
 
         for (int i = 0; i < rowsCount; ++i) {
             for (int j = i; j < columnsCount; ++j) {
-                double support = rows[i].getCoordinate(j);
+                double temp = rows[i].getCoordinate(j);
                 rows[i].setCoordinate(j, getRow(j).getCoordinate(i));
-                rows[j].setCoordinate(i, support);
+                rows[j].setCoordinate(i, temp);
             }
         }
     }
 
-    public void scalarMultiplication(double scalar) {
-        int rowCount = getRowsCount();
-        for (int i = 0; i < rowCount; ++i) {
-            this.rows[i].multiplyByScalar(scalar);
+    public void multiplyOnScalar(double scalar) {
+        for (Vector element : this.rows) {
+            element.multiplyByScalar(scalar);
         }
     }
 

@@ -19,6 +19,7 @@ public class Main {
                 {2, 3, 1, 12}
         };
 
+
         Matrix matrix2 = new Matrix(matrix);
         System.out.println(matrix2.toString());
         System.out.println();
@@ -54,13 +55,13 @@ public class Main {
         System.out.println();
 
         System.out.println("Transform the matrix: ");
-        matrix2.transposition();
+        matrix2.transpose();
         System.out.println(matrix2.toString());
         System.out.println();
 
         double alpha = 6;
         System.out.println("Multiply the matrix by a scalar: " + alpha);
-        matrix2.scalarMultiplication(alpha);
+        matrix2.multiplyOnScalar(alpha);
         System.out.println(matrix2.toString());
         System.out.println();
 
@@ -100,10 +101,10 @@ public class Main {
 
         System.out.println("Multiply the matrix (unit) by the matrix 3:");
         matrix1 = new Matrix(new double[][]{
-                {1,0,0,0},
-                {0,1,0,0},
-                {0,0,1,0},
-                {0,0,0,1}
+                {1, 0, 0, 0},
+                {0, 1, 0, 0},
+                {0, 0, 1, 0},
+                {0, 0, 0, 1}
         });
 
         Matrix matrix7 = Matrix.mul(matrix1, matrix3);
