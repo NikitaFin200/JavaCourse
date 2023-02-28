@@ -91,16 +91,14 @@ public class Matrix {
     }
 
     public int getColumnsCount() {
-        int rowsQuantity = getRowsCount();
-
-        return rows[rowsQuantity - 1].getSize();
+        return new Vector(rows[0]).getSize();
+        //return rows[getRowsCount() - 1].getSize();
     }
 
     public Vector getRow(int index) {
-        try {
-
-        } catch (Throwable e) {
-            System.out.println("Illegal index of rows. index = " + index);
+        if (index < 0 || index >= rows.length) {
+            throw new ArrayIndexOutOfBoundsException("Illegal index of rows. Your index = " + index + ". Minimal index = 0. "
+                    + " Maximal index = " + (rows.length - 1));
         }
 
         return new Vector(rows[index]);
@@ -108,7 +106,8 @@ public class Matrix {
 
     public void setRow(int index, Vector vector) {
         if (index < 0 || index >= rows.length) {
-            throw new IllegalArgumentException("Illegal index of rows");
+            throw new ArrayIndexOutOfBoundsException("Illegal index of rows. Your index = " + index + ". Minimal index = 0. "
+                    + " Maximal index = " + (rows.length - 1));
         }
 
         int size = vector.getSize();
@@ -118,16 +117,17 @@ public class Matrix {
         }
     }
 
-    public Vector getColumn(int i) {
-        if (i < 0 || i >= getColumnsCount()) {
-            throw new IllegalArgumentException("Illegal index of columns");
+    public Vector getColumn(int index) {
+        if (index < 0 || index >= getColumnsCount()) {
+            throw new ArrayIndexOutOfBoundsException("Illegal index of rows. Your index = " + index + ". Minimal index = 0. "
+                    + " Maximal index = " + (rows.length - 1));
         }
 
-        int height = this.rows.length;
-        Vector vector = new Vector(height);
+        int rowsQuantity = rows.length;
+        Vector vector = new Vector(rowsQuantity);
 
-        for (int j = 0; j < height; ++j) {
-            vector.setCoordinate(j, rows[j].getCoordinate(i));
+        for (int i = 0; i < rowsQuantity; ++i) {
+            vector.setCoordinate(i, rows[i].getCoordinate(index));
         }
 
         return vector;
@@ -146,9 +146,9 @@ public class Matrix {
         }
     }
 
-    public void multiplyOnScalar(double scalar) {
-        for (Vector element : this.rows) {
-            element.multiplyByScalar(scalar);
+    public void multiplyByScalar(double scalar) {
+        for (Vector string : rows) {
+            string.multiplyByScalar(scalar);
         }
     }
 
@@ -165,65 +165,65 @@ public class Matrix {
         }
 
         if (rowsQuantity == 2) {
-            return rows[0].getCoordinate(0) * rows[1].getCoordinate(1) -
-                    rows[0].getCoordinate(1) * rows[1].getCoordinate(0);
+            return rows[0].getCoordinate(0) * rows[1].getCoordinate(1)
+                    - rows[0].getCoordinate(1) * rows[1].getCoordinate(0);
         }
-
+/*
         if (rowsQuantity == 3) {
-            return rows[0].getCoordinate(0) * rows[1].getCoordinate(1) *
-                    rows[2].getCoordinate(2) + rows[2].getCoordinate(0) *
-                    rows[0].getCoordinate(1) * rows[1].getCoordinate(2) +
-                    rows[0].getCoordinate(2) * rows[1].getCoordinate(0) *
-                            rows[2].getCoordinate(1) - rows[0].getCoordinate(2) *
-                    rows[1].getCoordinate(1) * rows[2].getCoordinate(0) -
-                    rows[1].getCoordinate(0) * rows[0].getCoordinate(1) *
-                            rows[2].getCoordinate(2) - rows[0].getCoordinate(0) *
-                    rows[2].getCoordinate(1) * rows[1].getCoordinate(2);
+            return rows[0].getCoordinate(0) * rows[1].getCoordinate(1)
+                    * rows[2].getCoordinate(2) + rows[2].getCoordinate(0)
+                    * rows[0].getCoordinate(1) * rows[1].getCoordinate(2)
+                    + rows[0].getCoordinate(2) * rows[1].getCoordinate(0)
+                    * rows[2].getCoordinate(1) - rows[0].getCoordinate(2)
+                    * rows[1].getCoordinate(1) * rows[2].getCoordinate(0)
+                    - rows[1].getCoordinate(0) * rows[0].getCoordinate(1)
+                    * rows[2].getCoordinate(2) - rows[0].getCoordinate(0)
+                    * rows[2].getCoordinate(1) * rows[1].getCoordinate(2);
         }
-
+*/
         int decompositionIndex = 0;
         double determinant = 0;
 
         for (int i = 0; i < rowsQuantity; i++) {
             determinant += Math.pow(-1, i) * rows[i].getCoordinate(decompositionIndex) *
-                    getMatrixDeterminant(this, i, decompositionIndex);
+                    getDeterminant(this, i, decompositionIndex);
         }
 
         return determinant;
     }
 
-    private static double getMatrixDeterminant(Matrix matrix, int indexRow, int indexColumn) {
-        int size = matrix.rows.length - 1;
-        Matrix result = new Matrix(size, size);
+    private static double getDeterminant(Matrix matrix, int rowIndex, int columnIndex) {
+        int minorSize = matrix.rows.length - 1;
+        Matrix minor = new Matrix(minorSize, minorSize);
 
-        for (int i = 0, checkColumn = 0; i < matrix.rows.length; i++) {
-            for (int j = 0, checkRow = 0; j < matrix.rows.length; j++) {
-                if (i != indexRow && j != indexColumn) {
-                    result.rows[checkColumn].setCoordinate(checkRow, matrix.rows[i].getCoordinate(j));
-                    checkRow++;
+        for (int i = 0, columnIndexCheck = 0; i < matrix.rows.length; i++) {
+            for (int j = 0, rowIndexCheck = 0; j < matrix.rows.length; j++) {
+                if (i != rowIndex && j != columnIndex) {
+                    minor.rows[columnIndexCheck].setCoordinate(rowIndexCheck, matrix.rows[i].getCoordinate(j));
+                    rowIndexCheck++;
 
-                    if (checkRow == size) {
-                        checkRow = 0;
-                        checkColumn++;
+                    if (rowIndexCheck == minorSize) {
+                        rowIndexCheck = 0;
+                        columnIndexCheck++;
                     }
                 }
             }
         }
 
-        return result.getDeterminant();
+        return minor.getDeterminant();
     }
 
     @Override
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("{");
-        int size = rows.length;
+        int size = rows.length - 1;
 
-        for (int i = 0; i < size - 1; i++) {
-            stringBuilder.append(rows[i]).append(",");
+        for (int i = 0; i < size; i++) {
+            stringBuilder.append(rows[i]).append(", ");
         }
 
-        stringBuilder.append(rows[size - 1]).append("}");
+        stringBuilder.append(rows[size]).append("}");
         return stringBuilder.toString();
     }
 
@@ -233,7 +233,7 @@ public class Matrix {
         Vector multiplyResult = new Vector(rowsQuantity);
 
         if (quantityColumns != getColumnsCount()) {
-            throw new IllegalArgumentException("Illegal Argument Exception. quantityRows = " + rowsQuantity + "quantityColumns" + quantityColumns);
+            throw new IllegalArgumentException(rowsQuantity + "quantityColumns" + quantityColumns);
         }
 
         for (int i = 0; i < rowsQuantity; ++i) {

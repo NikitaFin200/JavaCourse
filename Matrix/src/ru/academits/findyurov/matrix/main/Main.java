@@ -60,7 +60,7 @@ public class Main {
 
         double alpha = 6;
         System.out.println("Multiply the matrix by a scalarrr: " + alpha);
-        matrix2.multiplyOnScalar(alpha);
+        matrix2.multiplyByScalar(alpha);
         System.out.println(matrix2.toString());
         System.out.println();
 
