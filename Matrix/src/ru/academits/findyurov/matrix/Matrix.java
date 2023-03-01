@@ -5,7 +5,6 @@ import ru.academits.findyurov.vector.Vector;
 import static ru.academits.findyurov.vector.Vector.multiplyByScalar;
 
 public class Matrix {
-
     private Vector[] rows;
 
     public Matrix(int quantityRows, int quantityColumns) {
