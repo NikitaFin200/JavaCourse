@@ -1,4 +1,4 @@
-package ru.academits.findyurov.shapes.shape;
+package ru.academits.findyurov.shapes;
 
 public class Square implements Shape {
     private final double sideLength;
@@ -53,6 +53,7 @@ public class Square implements Shape {
 
     @Override
     public String toString() {
-        return "Square" + "[" + "sideLength: " + sideLength + "]";
+        String str = "Square [sideLength: ";
+        return str + sideLength + "]";
     }
 }

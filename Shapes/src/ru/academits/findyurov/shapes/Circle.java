@@ -1,4 +1,4 @@
-package ru.academits.findyurov.shapes.shape;
+package ru.academits.findyurov.shapes;
 
 public class Circle implements Shape {
     private final double radius;
@@ -53,6 +53,7 @@ public class Circle implements Shape {
 
     @Override
     public String toString() {
-        return "Circle" + "[" + "radius: " + radius + "]";
+        String str = "Circle [radius:";
+        return str + radius + "]";
     }
 }

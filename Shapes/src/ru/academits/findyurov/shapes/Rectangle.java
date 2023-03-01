@@ -1,6 +1,4 @@
-package ru.academits.findyurov.shapes.shape;
-
-import java.util.Arrays;
+package ru.academits.findyurov.shapes;
 
 public class Rectangle implements Shape {
     private final double width;
@@ -56,6 +54,7 @@ public class Rectangle implements Shape {
 
     @Override
     public String toString() {
-        return "Rectangle" + "[" + "width: " + width + ", " + "height: " + height + "]";
+        String str = "Rectangle [width: ";
+        return str + width + ", " + "height: " + height + "]";
     }
 }

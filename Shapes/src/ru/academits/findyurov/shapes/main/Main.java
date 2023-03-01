@@ -1,10 +1,10 @@
 package ru.academits.findyurov.shapes.main;
 
-import ru.academits.findyurov.shapes.shape.Shape;
-import ru.academits.findyurov.shapes.shape.Circle;
-import ru.academits.findyurov.shapes.shape.Rectangle;
-import ru.academits.findyurov.shapes.shape.Square;
-import ru.academits.findyurov.shapes.shape.Triangle;
+import ru.academits.findyurov.shapes.Shape;
+import ru.academits.findyurov.shapes.Circle;
+import ru.academits.findyurov.shapes.Rectangle;
+import ru.academits.findyurov.shapes.Square;
+import ru.academits.findyurov.shapes.Triangle;
 
 import java.util.Arrays;
 
