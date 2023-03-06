@@ -21,15 +21,15 @@ public class Triangle implements Shape {
         return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
     }
 
-    public double getLengthSide1() {
+    private double getSideLength1() {
         return getSideLength(x1, y1, x2, y2);
     }
 
-    public double getLengthSide2() {
+    private double getSideLength2() {
         return getSideLength(x2, y2, x3, y3);
     }
 
-    public double getLengthSide3() {
+    private double getSideLength3() {
         return getSideLength(x3, y3, x1, y1);
     }
 
@@ -47,16 +47,12 @@ public class Triangle implements Shape {
     public double getArea() {
         double semiPerimeter = getPerimeter() * 0.5;
 
-        double firstSide = semiPerimeter - getLengthSide1();
-        double secondSide = semiPerimeter - getLengthSide2();
-        double thirdSide = semiPerimeter - getLengthSide3();
-
-        return Math.sqrt(semiPerimeter * firstSide * secondSide * thirdSide);
+        return Math.sqrt(semiPerimeter * (semiPerimeter - getSideLength1()) * (semiPerimeter - getSideLength2()) * (semiPerimeter - getSideLength3()));
     }
 
     @Override
     public double getPerimeter() {
-        return getLengthSide1() + getLengthSide2() + getLengthSide3();
+        return getSideLength1() + getSideLength2() + getSideLength3();
     }
 
     @Override
@@ -98,9 +94,9 @@ public class Triangle implements Shape {
     private static double getMax(double... numbers) {
         double max = numbers[0];
 
-        for (double digit : numbers) {
-            if (digit > max) {
-                max = digit;
+        for (double number : numbers) {
+            if (number > max) {
+                max = number;
             }
         }
 
