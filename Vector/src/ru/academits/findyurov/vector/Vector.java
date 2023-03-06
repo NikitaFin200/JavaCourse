@@ -123,27 +123,27 @@ public class Vector {
 
         return true;
     }
-    /*
+
     @Override
-    public boolean equals(Object obj1, Object obj2) {
-        if (obj1 == this) {
+    public boolean equals(Object[] obj1, Object[] obj2) {
+        if (obj1[0] == this) {
             return true;
         }
 
-        if (obj1 == null || obj1.getClass() != getClass()) {
+        if (obj1[0] == null || obj1[0].getClass() != getClass()) {
             return false;
         }
 
-        if (obj2 == this) {
+        if (obj2[0] == this) {
             return true;
         }
 
-        if (obj2 == null || obj2.getClass() != getClass()) {
+        if (obj2[0] == null || obj2[0].getClass() != getClass()) {
             return false;
         }
 
-        Vector vector1 = (Vector) obj1;
-        Vector vector2 = (Vector) obj2;
+        Vector vector1 = (Vector) obj1[0];
+        Vector vector2 = (Vector) obj2[0];
 
         if (coordinates.length != vector1.coordinates.length) {
             return false;
@@ -154,13 +154,13 @@ public class Vector {
         }
 
         for (int i = 0; i < coordinates.length; i++) {
-            if ((coordinates[i] != vector1.coordinates[i]) || coordinates[i]!= vector2.coordinates[i]) {
+            if (!(vector1.coordinates[i] != vector2.coordinates[i])) {
                 return false;
             }
         }
 
         return true;
-    }*/
+    }
 
     @Override
     public int hashCode() {
