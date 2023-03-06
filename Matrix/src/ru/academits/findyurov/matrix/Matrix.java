@@ -2,7 +2,7 @@ package ru.academits.findyurov.matrix;
 
 import ru.academits.findyurov.vector.Vector;
 
-import static ru.academits.findyurov.vector.Vector.multiplyByScalar;
+import static ru.academits.findyurov.vector.Vector.getScalarProduct;
 
 public class Matrix {
     private Vector[] rows;
@@ -297,7 +297,7 @@ public class Matrix {
 
         for (int i = 0; i < rowCount1; ++i) {
             for (int j = 0; j < rowCount2; ++j) {
-                composition.rows[i].setCoordinate(j, multiplyByScalar(matrix1.getRow(i), matrix2.getColumn(j)));
+                composition.rows[i].setCoordinate(j, getScalarProduct(matrix1.getRow(i), matrix2.getColumn(j)));
             }
         }
 

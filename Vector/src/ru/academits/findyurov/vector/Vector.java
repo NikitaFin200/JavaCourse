@@ -3,11 +3,11 @@ package ru.academits.findyurov.vector;
 import java.util.Arrays;
 
 public class Vector {
-    public double[] coordinates;
+    private double[] coordinates;
 
     public Vector(int size) {
         if (size <= 0) {
-            throw new IllegalArgumentException("Vector should be more than 1! " + size + " < 1");
+            throw new IllegalArgumentException("The size of the vector must be greater than 1. Size = " + size);
         }
 
         coordinates = new double[size];
@@ -78,7 +78,7 @@ public class Vector {
     }
 
     public void turn() {
-        this.multiplyByScalar(-1.0);
+        multiplyByScalar(-1.0);
     }
 
     public double getLength() {
@@ -123,6 +123,44 @@ public class Vector {
 
         return true;
     }
+    /*
+    @Override
+    public boolean equals(Object obj1, Object obj2) {
+        if (obj1 == this) {
+            return true;
+        }
+
+        if (obj1 == null || obj1.getClass() != getClass()) {
+            return false;
+        }
+
+        if (obj2 == this) {
+            return true;
+        }
+
+        if (obj2 == null || obj2.getClass() != getClass()) {
+            return false;
+        }
+
+        Vector vector1 = (Vector) obj1;
+        Vector vector2 = (Vector) obj2;
+
+        if (coordinates.length != vector1.coordinates.length) {
+            return false;
+        }
+
+        if (coordinates.length != vector2.coordinates.length) {
+            return false;
+        }
+
+        for (int i = 0; i < coordinates.length; i++) {
+            if ((coordinates[i] != vector1.coordinates[i]) || coordinates[i]!= vector2.coordinates[i]) {
+                return false;
+            }
+        }
+
+        return true;
+    }*/
 
     @Override
     public int hashCode() {
@@ -141,11 +179,11 @@ public class Vector {
         return result;
     }
 
-    public static double multiplyByScalar(Vector vector1, Vector vector2) {
+    public static double getScalarProduct(Vector vector1, Vector vector2) {
         double result = 0;
-        int minimalSize = Math.min(vector1.getSize(), vector2.getSize());
+        int minSize = Math.min(vector1.getSize(), vector2.getSize());
 
-        for (int i = 0; i < minimalSize; ++i) {
+        for (int i = 0; i < minSize; ++i) {
             result += vector1.coordinates[i] * vector2.coordinates[i];
         }
 

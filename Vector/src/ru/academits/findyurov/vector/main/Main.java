@@ -2,6 +2,8 @@ package ru.academits.findyurov.vector.main;
 
 import ru.academits.findyurov.vector.Vector;
 
+import java.util.Arrays;
+
 public class Main {
     public static void main(String[] args) {
         Vector vector1 = new Vector(2);
@@ -19,6 +21,11 @@ public class Main {
         System.out.println("Its dimension = " + vector2.getSize());
         System.out.println("Its length = " + vector2.getLength());
         System.out.println();
+
+        System.out.println("Comparing two vectors.");
+        System.out.println("Vector 1 = " + vector1);
+        System.out.println("Vector 2 =" + vector2);
+       // System.out.println(Arrays.equals(new Vector[]{vector1, vector2}));
 
         double[] array = {1, 2, 3};
         Vector vector3 = new Vector(array);
@@ -54,6 +61,6 @@ public class Main {
 
         vector6.add(new Vector(new double[]{0, 0, 0, 0, 0}));
         System.out.println("vector 6 = " + vector6);
-        System.out.println("vector 5 * vector 6 = " + Vector.multiplyByScalar(vector5, vector6));
+        System.out.println("vector 5 * vector 6 = " + Vector.getScalarProduct(vector5, vector6));
     }
 }
