@@ -1,13 +1,13 @@
 package ru.academits.findyurov.shapes;
 
 public class Square implements Shape {
-    private final double sideLength;
+    private double sideLength;
 
     public Square(double side) {
-        this.sideLength = side;
+        this.sideLength = sideLength;
     }
 
-    public double getSide() {
+    public double getSideLength() {
         return sideLength;
     }
 
