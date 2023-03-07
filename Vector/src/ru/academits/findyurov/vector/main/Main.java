@@ -25,7 +25,8 @@ public class Main {
         System.out.println("Comparing two vectors.");
         System.out.println("Vector 1 = " + vector1);
         System.out.println("Vector 2 =" + vector2);
-        System.out.println(Arrays.equals(new Vector[]{vector1}, new Vector[]{vector2}));
+        System.out.println(vector1.equals(vector2));
+        System.out.println();
 
         double[] array = {1, 2, 3};
         Vector vector3 = new Vector(array);

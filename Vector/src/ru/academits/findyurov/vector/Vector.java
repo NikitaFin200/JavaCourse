@@ -7,7 +7,7 @@ public class Vector {
 
     public Vector(int size) {
         if (size <= 0) {
-            throw new IllegalArgumentException("The size of the vector must be greater than 1. Size = " + size);
+            throw new IllegalArgumentException("The size of the vector must be greater than 0. Size = " + size);
         }
 
         coordinates = new double[size];
@@ -19,7 +19,7 @@ public class Vector {
 
     public Vector(double[] coordinates) {
         if (coordinates.length == 0) {
-            throw new IllegalArgumentException("The size of the array cannot be 0");
+            throw new IllegalArgumentException("The size of the array must be greater than 0. Size = " + coordinates.length);
         }
 
         this.coordinates = Arrays.copyOf(coordinates, coordinates.length);
@@ -116,45 +116,7 @@ public class Vector {
         }
 
         for (int i = 0; i < coordinates.length; i++) {
-            if (coordinates[i] != vector.coordinates[i]) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    @Override
-    public boolean equals(Object[] obj1, Object[] obj2) {
-        if (obj1[0] == this) {
-            return true;
-        }
-
-        if (obj1[0] == null || obj1[0].getClass() != getClass()) {
-            return false;
-        }
-
-        if (obj2[0] == this) {
-            return true;
-        }
-
-        if (obj2[0] == null || obj2[0].getClass() != getClass()) {
-            return false;
-        }
-
-        Vector vector1 = (Vector) obj1[0];
-        Vector vector2 = (Vector) obj2[0];
-
-        if (coordinates.length != vector1.coordinates.length) {
-            return false;
-        }
-
-        if (coordinates.length != vector2.coordinates.length) {
-            return false;
-        }
-
-        for (int i = 0; i < coordinates.length; i++) {
-            if (!(vector1.coordinates[i] != vector2.coordinates[i])) {
+            if (!(Arrays.equals(new double[]{coordinates[i]}, new double[]{vector.coordinates[i]}))) {
                 return false;
             }
         }
