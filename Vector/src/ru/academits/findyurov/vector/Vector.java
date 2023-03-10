@@ -111,17 +111,7 @@ public class Vector {
 
         Vector vector = (Vector) obj;
 
-        if (coordinates.length != vector.coordinates.length) {
-            return false;
-        }
-
-        for (int i = 0; i < coordinates.length; i++) {
-            if (!(Arrays.equals(new double[]{coordinates[i]}, new double[]{vector.coordinates[i]}))) {
-                return false;
-            }
-        }
-
-        return true;
+        return Arrays.equals(coordinates, vector.coordinates);
     }
 
     @Override
