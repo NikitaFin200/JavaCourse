@@ -233,7 +233,7 @@ public class Matrix {
         Vector multiplyResult = new Vector(rowsQuantity);
 
         if (quantityColumns != getColumnsCount()) {
-            throw new IllegalArgumentException(rowsQuantity + "quantityColumns" + quantityColumns);
+            throw new IllegalArgumentException("No epta" + rowsQuantity + "quantityColumns" + quantityColumns);
         }
 
         for (int i = 0; i < rowsQuantity; ++i) {
