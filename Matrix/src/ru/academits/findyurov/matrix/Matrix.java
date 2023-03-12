@@ -5,25 +5,25 @@ import ru.academits.findyurov.vector.Vector;
 import static ru.academits.findyurov.vector.Vector.getScalarProduct;
 
 public class Matrix {
-    private Vector[] rows;
+    private final Vector[] rows;
 
-    public Matrix(int quantityRows, int quantityColumns) {
-        if (quantityRows <= 0) {
-            throw new IllegalArgumentException("Number of rows is 0. Your value = " + quantityRows);
+    public Matrix(int rowsQuantity, int columnsQuantity) {
+        if (rowsQuantity <= 0) {
+            throw new IllegalArgumentException("Number of rows is 0. Your value = " + rowsQuantity);
         }
 
-        rows = new Vector[quantityRows];
+        rows = new Vector[rowsQuantity];
 
-        for (int i = 0; i < quantityRows; ++i) {
-            rows[i] = new Vector(quantityColumns);
+        for (int i = 0; i < rowsQuantity; ++i) {
+            rows[i] = new Vector(columnsQuantity);
         }
     }
 
     public Matrix(Matrix matrix) {
-        int rowsCount = matrix.getRowsCount();
-        rows = new Vector[rowsCount];
+        int rowsQuantity = matrix.getRowsCount();
+        rows = new Vector[rowsQuantity];
 
-        for (int i = 0; i < rowsCount; ++i) {
+        for (int i = 0; i < rowsQuantity; ++i) {
             rows[i] = new Vector(matrix.rows[i]);
         }
     }
@@ -35,19 +35,19 @@ public class Matrix {
 
         rows = new Vector[array.length];
 
-        int columnsCount = 1;
+        int columnsQuantity = 1;
 
         for (double[] string : array) {
             if (string.length == 0) {
                 throw new IllegalArgumentException("Cannot create a row of matrix of size 0");
             }
-            if (string.length > columnsCount) {
-                columnsCount = string.length;
+            if (string.length > columnsQuantity) {
+                columnsQuantity = string.length;
             }
         }
 
         for (int i = 0; i < array.length; ++i) {
-            rows[i] = new Vector(columnsCount, array[i]);
+            rows[i] = new Vector(columnsQuantity, array[i]);
         }
     }
 
@@ -57,16 +57,16 @@ public class Matrix {
         }
 
         rows = new Vector[vectors.length];
-        int columnsCount = 1;
+        int columnsQuantity = 1;
 
         for (Vector vector : vectors) {
-            if (vector.getSize() > columnsCount) {
-                columnsCount = vector.getSize();
+            if (vector.getSize() > columnsQuantity) {
+                columnsQuantity = vector.getSize();
             }
         }
 
         for (int i = 0; i < vectors.length; ++i) {
-            rows[i] = new Vector(columnsCount);
+            rows[i] = new Vector(columnsQuantity);
             rows[i].add(vectors[i]);
         }
     }
@@ -76,9 +76,9 @@ public class Matrix {
     }
 
     public int getColumnsCount() {
-        int rowsCount = getRowsCount();
+        int rowsQuantity = getRowsCount();
 
-        return rows[rowsCount - 1].getSize();
+        return rows[rowsQuantity - 1].getSize();
     }
 
     public Vector getRow(int index) {
@@ -119,13 +119,13 @@ public class Matrix {
     }
 
     public void transpose() {
-        int rowsCount = getRowsCount();
-        int columnsCount = getColumnsCount();
+        int rowsQuantity = getRowsCount();
+        int columnsQuantity = getColumnsCount();
 
-        for (int i = 0; i < rowsCount; ++i) {
-            for (int j = i; j < columnsCount; ++j) {
+        for (int i = 0; i < rowsQuantity; ++i) {
+            for (int j = i; j < columnsQuantity; ++j) {
                 double temp = rows[i].getCoordinate(j);
-                rows[i].setCoordinate(j, getRow(j).getCoordinate(i));
+                rows[i].setCoordinate(j, rows[j].getCoordinate(i));
                 rows[j].setCoordinate(i, temp);
             }
         }
@@ -138,23 +138,23 @@ public class Matrix {
     }
 
     public double getDeterminant() {
-        int quantityRows = getRowsCount();
-        int quantityColumns = getColumnsCount();
+        int rowsQuantity = getRowsCount();
+        int columnsQuantity = getColumnsCount();
 
-        if (quantityRows != quantityColumns) {
-            throw new UnsupportedOperationException("Determinant can be computed from the elements of a square matrix only. quantityRows = " + quantityRows + ", quantityColumns = " + quantityColumns);
+        if (rowsQuantity != columnsQuantity) {
+            throw new UnsupportedOperationException("Determinant can be computed from the elements of a square matrix only. quantityRows = " + rowsQuantity + ", quantityColumns = " + columnsQuantity);
         }
 
-        if (quantityRows == 1) {
-            return getRow(0).getCoordinate(0);
+        if (rowsQuantity == 1) {
+            return new Vector(rows[0]).getCoordinate(0);
         }
 
-        if (quantityRows == 2) {
+        if (rowsQuantity == 2) {
             return getRow(0).getCoordinate(0) * getRow(1).getCoordinate(1) -
                     getRow(0).getCoordinate(1) * getRow(1).getCoordinate(0);
         }
 
-        if (quantityRows == 3) {
+        if (rowsQuantity == 3) {
             return getRow(0).getCoordinate(0) * getRow(1).getCoordinate(1) *
                     getRow(2).getCoordinate(2) + getRow(2).getCoordinate(0) *
                     getRow(0).getCoordinate(1) * getRow(1).getCoordinate(2) +
@@ -169,7 +169,7 @@ public class Matrix {
         int decompositionIndex = 0;
         double determinant = 0;
 
-        for (int i = 0; i < quantityRows; i++) {
+        for (int i = 0; i < rowsQuantity; i++) {
             determinant += Math.pow(-1, i) * getRow(i).getCoordinate(decompositionIndex) *
                     getMatrixDeterminant(this, i, decompositionIndex);
         }
@@ -213,15 +213,15 @@ public class Matrix {
     }
 
     public Vector multiply(Vector vector) {
-        int quantityRows = getRowsCount();
+        int rowsQuantity = getRowsCount();
         int quantityColumns = getColumnsCount();
-        Vector multiplyResult = new Vector(quantityRows);
+        Vector multiplyResult = new Vector(rowsQuantity);
 
-        if (quantityRows != getRowsCount() || quantityColumns != getColumnsCount()) {
-            throw new IllegalArgumentException("Illegal Argument Exception. quantityRows = " + quantityRows + "quantityColumns" + quantityColumns);
+        if (rowsQuantity != getRowsCount() || quantityColumns != getColumnsCount()) {
+            throw new IllegalArgumentException("Illegal Argument Exception. quantityRows = " + rowsQuantity + "quantityColumns" + quantityColumns);
         }
 
-        for (int i = 0; i < quantityRows; ++i) {
+        for (int i = 0; i < rowsQuantity; ++i) {
             double sum = 0;
 
             for (int j = 0; j < quantityColumns; ++j) {

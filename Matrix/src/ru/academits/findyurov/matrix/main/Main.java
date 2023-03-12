@@ -5,7 +5,6 @@ import ru.academits.findyurov.vector.Vector;
 
 import java.util.Arrays;
 
-
 public class Main {
     public static void main(String[] args) {
         Matrix matrix1 = new Matrix(4, 4);
