@@ -23,7 +23,7 @@ public class Main {
         System.out.println(matrix2.toString());
         System.out.println();
 
-        System.out.println("determinanttt = " + matrix2.getDeterminant());
+        System.out.println("determinantttt = " + matrix2.getDeterminant());
         System.out.println("Columns quantity = " + matrix2.getColumnsCount());
         System.out.println("Rows quantity = " + matrix2.getRowsCount());
         System.out.println();
