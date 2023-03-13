@@ -8,7 +8,7 @@ import java.util.Arrays;
 public class Main {
     public static void main(String[] args) {
         Matrix matrix1 = new Matrix(4, 4);
-        System.out.println(matrix1.toString());
+        System.out.println(matrix1);
         System.out.println();
 
         double[][] matrix = {
@@ -17,7 +17,6 @@ public class Main {
                 {3, 8, 11, 4},
                 {2, 3, 1, 12}
         };
-
 
         Matrix matrix2 = new Matrix(matrix);
         System.out.println(matrix2.toString());
@@ -50,52 +49,52 @@ public class Main {
         System.out.println();
 
         System.out.println("got the matrix ");
-        System.out.println(matrix2.toString());
+        System.out.println(matrix2);
         System.out.println();
 
         System.out.println("Transform the matrix: ");
         matrix2.transpose();
-        System.out.println(matrix2.toString());
+        System.out.println(matrix2);
         System.out.println();
 
         double alpha = 6;
-        System.out.println("Multiply the matrix by a scalarrr: " + alpha);
+        System.out.println("Multiply the matrix by a scalar: " + alpha);
         matrix2.multiplyByScalar(alpha);
-        System.out.println(matrix2.toString());
+        System.out.println(matrix2);
         System.out.println();
 
-        System.out.println("Multiplying a matrix by a vector ");
+        System.out.println("Multiplying a matrix by a vector");
         Vector vector = new Vector(new double[]{0, 0, 0, 1});
-        System.out.println(vector.toString() + ":");
+        System.out.println(vector + ":");
         Vector mulOnVec = matrix2.multiply(vector);
         System.out.println(mulOnVec.toString());
         System.out.println();
 
         System.out.println("A matrix created from an array of vectors:");
-        Vector[] vectors = new Vector[]{new Vector(new double[]{1, 4, 2}), new Vector(new double[]{3, 6, 7})};
+        Vector[] vectors = {new Vector(new double[]{1, 4, 2}), new Vector(new double[]{3, 6, 7})};
         Matrix matrix4 = new Matrix(vectors);
-        System.out.println(matrix4.toString());
+        System.out.println(matrix4);
 
         System.out.println("Let's add the matrix 2 and 3 statically:");
         Matrix matrix5 = Matrix.getSum(matrix2, matrix3);
-        System.out.println(matrix5.toString());
+        System.out.println(matrix5);
         System.out.println();
 
         System.out.println("Subtract matrix 3 from matrix 2 (statically):");
-        Matrix matrix6 = Matrix.getSubtraction(matrix2, matrix3);
-        System.out.println(matrix6.toString());
+        Matrix matrix6 = Matrix.getDifference(matrix2, matrix3);
+        System.out.println(matrix6);
         System.out.println();
 
         System.out.println("Let's add matrix 3 to matrix 2:");
         matrix2.add(matrix3);
-        System.out.println("Now matrix 2 has the form: ");
-        System.out.println(matrix2.toString());
+        System.out.println("Now matrix 2 has the form:");
+        System.out.println(matrix2);
         System.out.println();
 
         System.out.println("Now we subtract matrix 3 from the new matrix 2:");
         matrix2.subtract(matrix3);
         System.out.println("Now matrix 2 has the form: ");
-        System.out.println(matrix2.toString());
+        System.out.println(matrix2);
         System.out.println();
 
         System.out.println("Multiply the matrix (unit) by the matrix 3:");
@@ -107,6 +106,6 @@ public class Main {
         });
 
         Matrix matrix7 = Matrix.getComposition(matrix1, matrix3);
-        System.out.println(matrix7.toString());
+        System.out.println(matrix7);
     }
 }

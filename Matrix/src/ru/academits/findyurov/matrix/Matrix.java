@@ -277,8 +277,6 @@ public class Matrix {
             throw new IllegalArgumentException("Matrix size error. rows.length = " + rows.length);
         }
 
-        Vector vector = new Vector(rows.length);
-
         for (int i = 0; i < rows.length; ++i) {
             rows[i].setCoordinate(i, Vector.getDifference(rows[i], matrix.rows[i]).getCoordinate(i));
             //setRow(i, Vector.getDifference(new Vector(rows[i]), matrix.rows[i]));
@@ -286,7 +284,7 @@ public class Matrix {
         }
     }
 
-    public static Matrix getSubtraction(Matrix matrix1, Matrix matrix2) {
+    public static Matrix getDifference(Matrix matrix1, Matrix matrix2) {
         if (matrix1.rows.length != matrix2.rows.length || matrix1.getColumnsCount() != matrix2.getColumnsCount()) {
             throw new IllegalArgumentException("Matrix size error. matrix1.getRowsCount() = " + matrix1.rows.length +
                     "matrix2.getRowsCount()" + matrix2.rows.length +
