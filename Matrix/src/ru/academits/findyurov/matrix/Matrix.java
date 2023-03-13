@@ -106,8 +106,13 @@ public class Matrix {
 
     public void setRow(int index, Vector vector) {
         if (index < 0 || index >= rows.length) {
-            throw new ArrayIndexOutOfBoundsException("Illegal index of rows. Your index = " + index + ". Minimal index = 0. "
+            throw new ArrayIndexOutOfBoundsException("Illegal index of rows. Your index = "
+                    + index + ". Minimal index = 0. "
                     + " Maximal index = " + (rows.length - 1));
+        }
+
+        if (!(vector.getLength() != (rows.length))) {
+            throw new IllegalArgumentException("The sizes are not equal");
         }
 
         int size = vector.getSize();
@@ -229,17 +234,23 @@ public class Matrix {
 
     public Vector multiply(Vector vector) {
         int rowsQuantity = rows.length;
-        int quantityColumns = getColumnsCount();
-        Vector multiplyResult = new Vector(rowsQuantity);
+        int columnsQuantity = getColumnsCount();
 
-        if (quantityColumns != getColumnsCount()) {
-            throw new IllegalArgumentException("No epta" + rowsQuantity + "quantityColumns" + quantityColumns);
+        if (rowsQuantity != vector.getSize()) {
+            throw new IllegalArgumentException("The number of rows does not match the size. rowsQuantity = " + rowsQuantity);
         }
+
+        if (columnsQuantity != vector.getSize()) {
+            throw new IllegalArgumentException("The number of columns does not match the size. columnsQuantity = " + columnsQuantity);
+        }
+
+        Vector multiplyResult = new Vector(rowsQuantity);
 
         for (int i = 0; i < rowsQuantity; ++i) {
             double sum = 0;
 
-            for (int j = 0; j < quantityColumns; ++j) {
+            for (int j = 0; j < columnsQuantity; ++j) {
+                //multiplyResult.multiplyByScalar(vector.getCoordinate(j));
                 sum += rows[i].getCoordinate(j) * vector.getCoordinate(j);
             }
 
@@ -251,24 +262,27 @@ public class Matrix {
 
     public void add(Matrix matrix) {
         if (rows.length != matrix.rows.length || getColumnsCount() != matrix.getColumnsCount()) {
-            throw new IllegalArgumentException("Illegal Argument Exception. height = " + rows.length);
+            throw new IllegalArgumentException("Matrix size error. rows.length = " + rows.length);
         }
 
         for (int i = 0; i < rows.length; ++i) {
-            rows[i].setCoordinate(i, Vector.getSum(new Vector(rows[i]), matrix.rows[i]).getCoordinate(i));
+            rows[i].setCoordinate(i, Vector.getSum(rows[i], matrix.rows[i]).getCoordinate(i));
             //setRow(i, Vector.getSum(new Vector(rows[i]), matrix.rows[i]));
+            rows[i].add(matrix.rows[i]);
         }
     }
 
     public void subtract(Matrix matrix) {
         if (rows.length != matrix.rows.length || getColumnsCount() != matrix.getColumnsCount()) {
-            throw new IllegalArgumentException("Illegal Argument Exception. height = " + rows.length);
+            throw new IllegalArgumentException("Matrix size error. rows.length = " + rows.length);
         }
+
         Vector vector = new Vector(rows.length);
 
         for (int i = 0; i < rows.length; ++i) {
-            rows[i].setCoordinate(i, Vector.getDifference(new Vector(rows[i]), matrix.rows[i]).getCoordinate(i));
+            rows[i].setCoordinate(i, Vector.getDifference(rows[i], matrix.rows[i]).getCoordinate(i));
             //setRow(i, Vector.getDifference(new Vector(rows[i]), matrix.rows[i]));
+            rows[i].subtract(matrix.rows[i]);
         }
     }
 
