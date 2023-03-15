@@ -12,15 +12,22 @@ public class Main {
         System.out.println();
 
         double[][] matrix = {
-                {1, 2, 7, 21},
-                {5, 5, 9, 11},
-                {3, 8, 11, 4},
-                {2, 3, 1, 12}
+                {1, 2, 7, 21, 10},
+                {5, 5, 9, 11, 7},
+                {3, 8, 11, 4, 19},
+                {2, 3, 1, 12, 22}
         };
 
+
         Matrix matrix2 = new Matrix(matrix);
-        System.out.println(matrix2.toString());
+        System.out.println(matrix2);
         System.out.println();
+
+        System.out.println(matrix2.getColumnsCount());
+        System.out.println(matrix2.getColumn(2));
+
+        System.out.println("3");
+        System.out.println(matrix2.getRow(3));
 
         System.out.println("determinant = " + matrix2.getDeterminant());
         System.out.println("Columns quantity = " + matrix2.getColumnsCount());

@@ -91,7 +91,7 @@ public class Matrix {
     }
 
     public int getColumnsCount() {
-        return new Vector(rows[0]).getSize();
+        return rows[0].getSize();
         //return rows[getRowsCount() - 1].getSize();
     }
 
@@ -139,16 +139,51 @@ public class Matrix {
     }
 
     public void transpose() {
-        int rowsQuantity = rows.length;
         int columnsQuantity = getColumnsCount();
 
-        for (int i = 0; i < rowsQuantity; ++i) {
-            for (int j = i; j < columnsQuantity; ++j) {
+        String[][] mat = new String[getColumnsCount()][rows.length];
+
+        System.out.println(mat.length);
+        System.out.println(mat[0].length);
+
+        for (int i = 0; i < mat.length; i++) {
+            for (int j = 0; j < mat[0].length; j++) {
+                rows[j].setCoordinate(Integer.parseInt(mat[i][j]),rows[j].getCoordinate(j));
+            }
+
+        }
+
+
+/*
+        for (int i = 0; i < str.length; i++) {
+            for (int j = 0; j < str[0].length; j++) {
+                str[i][j] = String.valueOf(rows[j].getCoordinate(i));
+                str[j][i] = String.valueOf(rows[i].getCoordinate(j));
+                /*
+                rows[i].setCoordinate(j, rows[i].getCoordinate(i));
+                rows[j].setCoordinate(i, temp);
+                 */
+        // }
+        // }
+
+        /*
+        for (int i = 0; i < getColumnsCount(); i++) {
+            for (int j = 0; i < rows.length; j++) {
+                double temp = rows[j].getCoordinate(i);
+                rows[j].setCoordinate(i, rows[i].getCoordinate(j));
+                rows[i].setCoordinate(j, temp);
+            }
+        }
+
+/*
+        for (int i = 0; i < rows.length; ++i) {
+            for (int j = 0; j < getColumnsCount(); ++j) {
                 double temp = rows[i].getCoordinate(j);
                 rows[i].setCoordinate(j, rows[j].getCoordinate(i));
                 rows[j].setCoordinate(i, temp);
             }
         }
+ */
     }
 
     public void multiplyByScalar(double scalar) {
@@ -161,9 +196,11 @@ public class Matrix {
         int rowsQuantity = rows.length;
         int columnsQuantity = getColumnsCount();
 
+        /*
         if (rowsQuantity != columnsQuantity) {
             throw new UnsupportedOperationException("Determinant can be computed from the elements of a square matrix only. quantityRows = " + rowsQuantity + ", quantityColumns = " + columnsQuantity);
         }
+         */
 
         if (rowsQuantity == 1) {
             return new Vector(rows[0]).getCoordinate(0);
@@ -267,7 +304,6 @@ public class Matrix {
 
         for (int i = 0; i < rows.length; ++i) {
             rows[i].setCoordinate(i, Vector.getSum(rows[i], matrix.rows[i]).getCoordinate(i));
-            //setRow(i, Vector.getSum(new Vector(rows[i]), matrix.rows[i]));
             rows[i].add(matrix.rows[i]);
         }
     }
@@ -279,7 +315,6 @@ public class Matrix {
 
         for (int i = 0; i < rows.length; ++i) {
             rows[i].setCoordinate(i, Vector.getDifference(rows[i], matrix.rows[i]).getCoordinate(i));
-            //setRow(i, Vector.getDifference(new Vector(rows[i]), matrix.rows[i]));
             rows[i].subtract(matrix.rows[i]);
         }
     }
