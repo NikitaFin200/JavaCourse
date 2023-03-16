@@ -140,7 +140,27 @@ public class Matrix {
 
     public void transpose() {
         int columnsQuantity = getColumnsCount();
+        System.out.println(rows.length);
+        System.out.println(rows[0].getSize());
 
+        Vector[] rows2;
+        Matrix matrix = new Matrix(getColumnsCount(), rows.length);
+        for (int i = 0; i < matrix.rows.length; i++) {
+            rows2 = new Vector[]{getColumn(i)};
+
+            for (int j = 0; j < matrix.rows[i].getSize(); j++) {
+                rows[i].setCoordinate(j, rows2[i].getCoordinate(j));
+
+                /*
+                System.out.println("rows");
+                System.out.println(Arrays.toString(new Vector[]{rows[i]}));
+
+                System.out.println("rows2");
+                System.out.println(Arrays.toString(rows2));
+                 */
+            }
+        }
+/*
         String[][] mat = new String[getColumnsCount()][rows.length];
 
         System.out.println(mat.length);
@@ -148,13 +168,21 @@ public class Matrix {
 
         for (int i = 0; i < mat.length; i++) {
             for (int j = 0; j < mat[0].length; j++) {
-                rows[j].setCoordinate(Integer.parseInt(mat[i][j]),rows[j].getCoordinate(j));
+                mat[i][j] = String.valueOf(rows[i].getCoordinate(j));
+                mat[j][i] = String.valueOf(rows[i].getCoordinate(i));
             }
-
         }
 
 
 /*
+ Matrix composition = new Matrix(rowCount1, rowCount2);
+
+        for (int i = 0; i < rowCount1; ++i) {
+            for (int j = 0; j < rowCount2; ++j) {
+                composition.rows[i].setCoordinate(j, getScalarProduct(matrix1.rows[i], matrix2.getColumn(j)));
+            }
+        }
+
         for (int i = 0; i < str.length; i++) {
             for (int j = 0; j < str[0].length; j++) {
                 str[i][j] = String.valueOf(rows[j].getCoordinate(i));
@@ -346,21 +374,23 @@ public class Matrix {
         return result;
     }
 
-    public static Matrix getComposition(Matrix matrix1, Matrix matrix2) {
-        int rowCount1 = matrix1.rows.length;
-        int rowCount2 = matrix2.rows.length;
+    public static Matrix getProduct(Matrix matrix1, Matrix matrix2) {
+        int rowsCount1 = matrix1.rows.length;
+        int rowsCount2 = matrix2.rows.length;
+        int columnsCount1 = matrix1.getColumnsCount();
+        int columnsCount2 = matrix2.getColumnsCount();
 
-        if (matrix1.rows.length != matrix2.rows.length || matrix1.getColumnsCount() != matrix2.getColumnsCount()) {
+        if (rowsCount1 != rowsCount2 || columnsCount1 != columnsCount2) {
             throw new IllegalArgumentException("Matrix size error. matrix1.getRowsCount() = " + matrix1.rows.length +
                     "matrix2.getRowsCount() = " + matrix2.rows.length +
                     "matrix1.getColumnsCount()" + matrix1.getColumnsCount() +
                     "matrix2.getColumnsCount()" + matrix2.getColumnsCount());
         }
 
-        Matrix composition = new Matrix(rowCount1, rowCount2);
+        Matrix composition = new Matrix(rowsCount1, columnsCount1);
 
-        for (int i = 0; i < rowCount1; ++i) {
-            for (int j = 0; j < rowCount2; ++j) {
+        for (int i = 0; i < rowsCount1; ++i) {
+            for (int j = 0; j < rowsCount2; ++j) {
                 composition.rows[i].setCoordinate(j, getScalarProduct(matrix1.rows[i], matrix2.getColumn(j)));
             }
         }

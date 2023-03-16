@@ -12,10 +12,10 @@ public class Main {
         System.out.println();
 
         double[][] matrix = {
-                {1, 2, 7, 21, 10},
-                {5, 5, 9, 11, 7},
-                {3, 8, 11, 4, 19},
-                {2, 3, 1, 12, 22}
+                {1, 2, 7, 21, 7},
+                {5, 5, 9, 11, 8},
+                {3, 8, 11, 4, 9},
+                {2, 3, 1, 12, 10}
         };
 
 
@@ -73,8 +73,8 @@ public class Main {
         System.out.println("Multiplying a matrix by a vector");
         Vector vector = new Vector(new double[]{0, 0, 0, 1});
         System.out.println(vector + ":");
-        Vector mulOnVec = matrix2.multiply(vector);
-        System.out.println(mulOnVec.toString());
+        //Vector mulOnVec = matrix2.multiply(vector);
+        //System.out.println(mulOnVec.toString());
         System.out.println();
 
         System.out.println("A matrix created from an array of vectors:");
@@ -112,7 +112,7 @@ public class Main {
                 {0, 0, 0, 1}
         });
 
-        Matrix matrix7 = Matrix.getComposition(matrix1, matrix3);
+        Matrix matrix7 = Matrix.getProduct(matrix1, matrix3);
         System.out.println(matrix7);
     }
 }
