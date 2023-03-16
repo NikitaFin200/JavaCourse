@@ -41,7 +41,7 @@ public class Main {
 
         Main.deleteEvenNumbers(list2);
         System.out.println("List without even numbers");
-        System.out.println(list);
+        System.out.println(list2);
         System.out.println();
 
         ArrayList<Object> list3 = new ArrayList<>(Arrays.asList(1, 2, 3, 2, 10, 14, 10));
@@ -72,18 +72,37 @@ public class Main {
     }
 
     public static void deleteEvenNumbers(ArrayList<Integer> list) {
+        /*Iterator<Integer> iterator = list.iterator();
+
+        while (iterator.hasNext()){
+            if (iterator/2==0){
+
+            }
+        }*/
+        /*
         for (int i : list) {
+            Iterator<Integer> iterator = i.iterator();
+
             if (i % 2 == 0) {
+                iterator.remove();
+            }
+        }*/
+
+        //for(ArrayList<Integer> iterator=list.iterator(); iterator.hasN)
+        for (int i = 0; i <= list.size() - 1; i++) {
+            Integer number = list.get(i);
+
+            if (number % 2 == 0) {
                 list.remove(list.get(i));
             }
         }
-
-        //for(ArrayList<Integer> iterator=list.iterator(); iterator.hasN)
+/*
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i) % 2 == 0) {
                 list.remove(list.get(i));
             }
         }
+        */
     }
 
     public static ArrayList<Object> deleteRepeat(ArrayList<Object> list) {
