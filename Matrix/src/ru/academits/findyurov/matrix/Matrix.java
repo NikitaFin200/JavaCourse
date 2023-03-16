@@ -152,7 +152,7 @@ public class Matrix {
                 rows[i].setCoordinate(j, rows2[i].getCoordinate(j));
 
                 /*
-                System.out.println("rows");
+                System.out.println("rowss");
                 System.out.println(Arrays.toString(new Vector[]{rows[i]}));
 
                 System.out.println("rows2");
