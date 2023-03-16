@@ -1,9 +1,9 @@
 package ru.academits.findyurov.shapes;
 
 public class Square implements Shape {
-    private double sideLength;
+    private final double sideLength;
 
-    public Square(double side) {
+    public Square(double sideLength) {
         this.sideLength = sideLength;
     }
 
@@ -53,7 +53,6 @@ public class Square implements Shape {
 
     @Override
     public String toString() {
-        String str = "Square [sideLength: ";
-        return str + sideLength + "]";
+        return "Square [sideLength: " + sideLength + "]";
     }
 }

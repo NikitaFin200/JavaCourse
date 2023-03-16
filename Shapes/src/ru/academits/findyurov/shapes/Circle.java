@@ -53,7 +53,6 @@ public class Circle implements Shape {
 
     @Override
     public String toString() {
-        String str = "Circle [radius:";
-        return str + radius + "]";
+        return "Circle [radius:" + radius + "]";
     }
 }

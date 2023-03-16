@@ -17,19 +17,43 @@ public class Triangle implements Shape {
         this.y3 = y3;
     }
 
+    private double getX1() {
+        return x1;
+    }
+
+    private double getX2() {
+        return x2;
+    }
+
+    private double getX3() {
+        return x3;
+    }
+
+    private double getY1() {
+        return y1;
+    }
+
+    private double getY2() {
+        return y2;
+    }
+
+    private double getY3() {
+        return y3;
+    }
+
     private static double getSideLength(double x1, double y1, double x2, double y2) {
         return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
     }
 
-    private double getSideLength1() {
+    private double getSide1Length() {
         return getSideLength(x1, y1, x2, y2);
     }
 
-    private double getSideLength2() {
+    private double getSide2Length() {
         return getSideLength(x2, y2, x3, y3);
     }
 
-    private double getSideLength3() {
+    private double getSide3Length() {
         return getSideLength(x3, y3, x1, y1);
     }
 
@@ -45,14 +69,15 @@ public class Triangle implements Shape {
 
     @Override
     public double getArea() {
-        double semiPerimeter = getPerimeter() * 0.5;
-
-        return Math.sqrt(semiPerimeter * (semiPerimeter - getSideLength1()) * (semiPerimeter - getSideLength2()) * (semiPerimeter - getSideLength3()));
+        return Math.sqrt((getSide1Length() + getSide2Length() + getSide3Length())
+                * ((getSide1Length() + getSide2Length() + getSide3Length())
+                - getSide1Length()) * ((getSide1Length() + getSide2Length() + getSide3Length())
+                - getSide2Length()) * ((getSide1Length() + getSide2Length() + getSide3Length()) - getSide3Length()));
     }
 
     @Override
     public double getPerimeter() {
-        return getSideLength1() + getSideLength2() + getSideLength3();
+        return getSide1Length() + getSide2Length() + getSide3Length();
     }
 
     @Override
@@ -86,9 +111,9 @@ public class Triangle implements Shape {
 
     @Override
     public String toString() {
-        return "Triangle: " + "(" + "x1: " + x1 + "; " + "y1: " + y1 + "), " +
-                "(" + "x2: " + x2 + "; " + "y2: " + y2 + "), " +
-                "(" + "x3: " + x3 + "; " + "y3: " + y3 + ")";
+        return "Triangle: " + "(x1: " + x1 + "; y1: " + y1 + "), " +
+                "(x2: " + x2 + "; y2: " + y2 + "), ("
+                + "x3: " + x3 + "; y3: " + y3 + ")";
     }
 
     private static double getMax(double... numbers) {

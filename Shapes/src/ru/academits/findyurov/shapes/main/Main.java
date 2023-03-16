@@ -5,28 +5,36 @@ import ru.academits.findyurov.shapes.Circle;
 import ru.academits.findyurov.shapes.Rectangle;
 import ru.academits.findyurov.shapes.Square;
 import ru.academits.findyurov.shapes.Triangle;
-import ru.academits.findyurov.shapes.compare.AreaCompare;
-import ru.academits.findyurov.shapes.compare.PerimeterCompare;
+import ru.academits.findyurov.shapes.comparators.AreaFigureComparator;
+import ru.academits.findyurov.shapes.comparators.PerimeterFigureComparator;
 
 import java.util.Arrays;
 
 public class Main {
-    public static Shape getShapeWithMaxArea(Shape... shapes) throws IllegalArgumentException {
-        if (shapes == null || shapes.length == 0) {
+    public static Shape getShapeWithMaxArea(Shape... shapes) {
+        if (shapes == null) {
+            throw new IllegalArgumentException("There is no array");
+        }
+
+        if (shapes.length == 0) {
             throw new IllegalArgumentException("Array size is 0");
         }
 
-        Arrays.sort(shapes, new AreaCompare());
+        Arrays.sort(shapes, new AreaFigureComparator());
 
         return shapes[shapes.length - 1];
     }
 
-    public static Shape getShapeWithSecondPerimeter(Shape... shapes) throws IllegalArgumentException {
+    public static Shape getShapeWithSecondPerimeter(Shape... shapes) {
         if (shapes == null || shapes.length == 0) {
             throw new IllegalArgumentException("Array size is 0");
         }
 
-        Arrays.sort(shapes, new PerimeterCompare());
+        if (shapes.length == 1) {
+            return shapes[0];
+        }
+
+        Arrays.sort(shapes, new PerimeterFigureComparator());
 
         return shapes[shapes.length - 2];
     }
@@ -37,13 +45,13 @@ public class Main {
         Shape rectangle = new Rectangle(1, 2);
         Shape circle = new Circle(5);
 
-        Shape[] shapesArray = new Shape[4];
-        shapesArray[0] = square;
-        shapesArray[1] = triangle;
-        shapesArray[2] = rectangle;
-        shapesArray[3] = circle;
+        Shape[] shapesArray1 = new Shape[4];
+        shapesArray1[0] = square;
+        shapesArray1[1] = triangle;
+        shapesArray1[2] = rectangle;
+        shapesArray1[3] = circle;
 
-        for (Shape shape : shapesArray) {
+        for (Shape shape : shapesArray1) {
             System.out.println(shape);
             System.out.println("area = " + shape.getArea());
             System.out.println("width = " + shape.getWidth());
@@ -53,7 +61,8 @@ public class Main {
             System.out.println();
         }
 
-        Shape[] shapes = {new Square(9),
+        Shape[] shapesArray2 = {
+                new Square(9),
                 new Triangle(0, 1, 4, 2, 1, 6),
                 new Rectangle(5, 3),
                 new Circle(2),
@@ -67,7 +76,7 @@ public class Main {
                 new Circle(5)
         };
 
-        Shape maxAreaShape = getShapeWithMaxArea(shapes);
+        Shape maxAreaShape = getShapeWithMaxArea(shapesArray2);
         System.out.println(maxAreaShape);
         System.out.println("area = " + maxAreaShape.getArea());
         System.out.println("width = " + maxAreaShape.getWidth());
@@ -75,7 +84,7 @@ public class Main {
 
         System.out.println();
 
-        Shape secondPerimeterShape = getShapeWithSecondPerimeter(shapes);
+        Shape secondPerimeterShape = getShapeWithSecondPerimeter(shapesArray2);
         System.out.println(secondPerimeterShape);
         System.out.println("perimeter = " + secondPerimeterShape.getPerimeter());
         System.out.println("width = " + secondPerimeterShape.getWidth());
