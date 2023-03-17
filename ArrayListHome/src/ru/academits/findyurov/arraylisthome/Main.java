@@ -2,7 +2,6 @@ package ru.academits.findyurov.arraylisthome;
 
 import java.io.*;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Main {
     private static final ArrayList<String> list = new ArrayList<>();
@@ -11,7 +10,7 @@ public class Main {
         ArrayList<Object> list = new ArrayList<>(/*Main.getStringsFromFile("file.txt")*/);
 
         try {
-            list.add(Main.getStringsFromFile("file.txt"));
+            list.add(getStringsFromFile("file.txt"));
         } catch (FileNotFoundException e) {
             System.out.println("Could not find the file");
         }
@@ -52,7 +51,7 @@ public class Main {
         System.out.println();
 
         System.out.println("List without repeat numbers");
-        System.out.println(Main.deleteRepeat(list));
+        System.out.println(Main.getNewListWithoutRepeats(list));
         System.out.println();
     }
 
@@ -72,13 +71,16 @@ public class Main {
     }
 
     public static void deleteEvenNumbers(ArrayList<Integer> list) {
-        /*Iterator<Integer> iterator = list.iterator();
+        Iterator<Integer> iterator = list.iterator();
 
-        while (iterator.hasNext()){
-            if (iterator/2==0){
-
+        while (iterator.hasNext()) {
+            int t = iterator.next();
+            t = t % 2;
+            if (t == 0) {
+                iterator.remove();
             }
-        }*/
+        }
+
         /*
         for (int i : list) {
             Iterator<Integer> iterator = i.iterator();
@@ -86,9 +88,25 @@ public class Main {
             if (i % 2 == 0) {
                 iterator.remove();
             }
-        }*/
+        }
+
 
         //for(ArrayList<Integer> iterator=list.iterator(); iterator.hasN)
+
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i) % 2 == 0) {
+                int t = list.get(i);
+                System.out.println(t);
+                list.remove(i);
+            }
+        }
+
+        //for (int i : list) {
+        //  if (i % 2 == 0) {
+        //    Integer isDeleted = list.remove(i);
+        //}
+        //}
+
         for (int i = 0; i <= list.size() - 1; i++) {
             Integer number = list.get(i);
 
@@ -96,7 +114,7 @@ public class Main {
                 list.remove(list.get(i));
             }
         }
-/*
+
         for (int i = 0; i < list.size(); i++) {
             if (list.get(i) % 2 == 0) {
                 list.remove(list.get(i));
@@ -105,21 +123,21 @@ public class Main {
         */
     }
 
-    public static ArrayList<Object> deleteRepeat(ArrayList<Object> list) {
-        ArrayList<Object> newList = new ArrayList<>();
+    public static ArrayList<Object> getNewListWithoutRepeats(ArrayList<Object> list) {
+        ArrayList<Object> newList = new ArrayList<>(list);
 
-        for (int i = 0; i < list.size(); i++) {
+        for (int i = 0; i < newList.size(); i++) {
             boolean repeat = false;
 
-            for (int j = i + 1; j < list.size(); j++) {
-                if (Arrays.equals(new Object[]{list.get(j)}, new Object[]{list.get(i)})) {
+            for (int j = i + 1; j < newList.size(); j++) {
+                if (newList.get(i).equals(newList.get(j))) {  //Arrays.equals(new Object[]{list.get(j)}, new Object[]{list.get(i)})) {
                     repeat = true;
                     break;
                 }
             }
 
-            if (!(repeat)) {
-                newList.add(list.get(i));
+            if (repeat) {
+                newList.remove(newList.get(i));
             }
         }
 
