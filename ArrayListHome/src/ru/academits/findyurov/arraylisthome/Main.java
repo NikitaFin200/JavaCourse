@@ -80,47 +80,6 @@ public class Main {
                 iterator.remove();
             }
         }
-
-        /*
-        for (int i : list) {
-            Iterator<Integer> iterator = i.iterator();
-
-            if (i % 2 == 0) {
-                iterator.remove();
-            }
-        }
-
-
-        //for(ArrayList<Integer> iterator=list.iterator(); iterator.hasN)
-
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i) % 2 == 0) {
-                int t = list.get(i);
-                System.out.println(t);
-                list.remove(i);
-            }
-        }
-
-        //for (int i : list) {
-        //  if (i % 2 == 0) {
-        //    Integer isDeleted = list.remove(i);
-        //}
-        //}
-
-        for (int i = 0; i <= list.size() - 1; i++) {
-            Integer number = list.get(i);
-
-            if (number % 2 == 0) {
-                list.remove(list.get(i));
-            }
-        }
-
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i) % 2 == 0) {
-                list.remove(list.get(i));
-            }
-        }
-        */
     }
 
     public static ArrayList<Object> getNewListWithoutRepeats(ArrayList<Object> list) {
@@ -130,7 +89,7 @@ public class Main {
             boolean repeat = false;
 
             for (int j = i + 1; j < newList.size(); j++) {
-                if (newList.get(i).equals(newList.get(j))) {  //Arrays.equals(new Object[]{list.get(j)}, new Object[]{list.get(i)})) {
+                if (newList.get(i).equals(newList.get(j))) {
                     repeat = true;
                     break;
                 }
