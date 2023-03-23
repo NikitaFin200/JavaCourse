@@ -69,10 +69,14 @@ public class Triangle implements Shape {
 
     @Override
     public double getArea() {
-        return Math.sqrt((getSide1Length() + getSide2Length() + getSide3Length())
-                * ((getSide1Length() + getSide2Length() + getSide3Length())
-                - getSide1Length()) * ((getSide1Length() + getSide2Length() + getSide3Length())
-                - getSide2Length()) * ((getSide1Length() + getSide2Length() + getSide3Length()) - getSide3Length()));
+        double side1Length = getSide1Length();
+        double side2Length = getSide2Length();
+        double side3Length = getSide3Length();
+
+        double halfMeter = (side1Length + side2Length + side3Length) / 2;
+
+        return Math.sqrt(halfMeter * (halfMeter - side1Length) * (halfMeter - getSide2Length())
+                * (halfMeter - getSide3Length()));
     }
 
     @Override
@@ -111,9 +115,8 @@ public class Triangle implements Shape {
 
     @Override
     public String toString() {
-        return "Triangle: " + "(x1: " + x1 + "; y1: " + y1 + "), " +
-                "(x2: " + x2 + "; y2: " + y2 + "), ("
-                + "x3: " + x3 + "; y3: " + y3 + ")";
+        return "Triangle: " + x1 + "; " + y1 + "), ("
+                + x2 + "; " + y2 + "), (" + x3 + "; " + y3 + ")";
     }
 
     private static double getMax(double... numbers) {
