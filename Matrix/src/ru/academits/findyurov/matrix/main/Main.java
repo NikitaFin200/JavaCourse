@@ -11,15 +11,14 @@ public class Main {
         System.out.println(matrix1);
         System.out.println();
 
-        double[][] matrix = {
+        double[][] matrixArray = {
                 {1, 2, 7, 21, 7},
                 {5, 5, 9, 11, 8},
                 {3, 8, 11, 4, 9},
                 {2, 3, 1, 12, 10}
         };
 
-
-        Matrix matrix2 = new Matrix(matrix);
+        Matrix matrix2 = new Matrix(matrixArray);
         System.out.println(matrix2);
         System.out.println();
 
@@ -35,84 +34,92 @@ public class Main {
         System.out.println();
 
         Matrix matrix3 = new Matrix(matrix2);
-        System.out.println("Copy Constructor(academ.findyurov.matrix.Matrix 3): ");
-        System.out.println(matrix3.toString());
+        System.out.println("Copy Constructor(academ.findyurov.matrixArray.Matrix 3):");
+        System.out.println(matrix3);
         System.out.println();
 
         int i = 0;
         System.out.println("Row number " + (i + 1) + ":");
-        System.out.println(matrix2.getRow(i).toString());
+        System.out.println(matrix2.getRow(i));
         System.out.println();
 
         double[] value = {20, 2, 5, 6};
-        System.out.println("let's change it to " + Arrays.toString(value));
+        System.out.println("let's change it to" + Arrays.toString(value));
         matrix2.setRow(i, new Vector(value));
-        System.out.println(matrix2.getRow(0).toString());
+        System.out.println(matrix2.getRow(0));
         System.out.println();
 
         i = 1;
-        System.out.println("Column number " + (i + 1) + ":");
-        System.out.println(matrix2.getColumn(i).toString());
+        System.out.println("Column number" + (i + 1) + ":");
+        System.out.println(matrix2.getColumn(i));
         System.out.println();
 
-        System.out.println("got the matrix ");
+        System.out.println("got the matrixArray");
         System.out.println(matrix2);
         System.out.println();
 
-        System.out.println("Transform the matrix: ");
+        System.out.println("Transform the matrixArray:");
         matrix2.transpose();
         System.out.println(matrix2);
         System.out.println();
 
         double alpha = 6;
-        System.out.println("Multiply the matrix by a scalar: " + alpha);
+        System.out.println("Multiply the matrixArray by a scalar:" + alpha);
         matrix2.multiplyByScalar(alpha);
         System.out.println(matrix2);
         System.out.println();
 
-        System.out.println("Multiplying a matrix by a vector");
-        Vector vector = new Vector(new double[]{0, 0, 0, 1});
+        System.out.println("Multiplying a matrixArray by a vector");
+        Vector vector = new Vector(new double[]{0, 3, 0, 1});
         System.out.println(vector + ":");
         Vector mulOnVec = matrix2.multiply(vector);
         System.out.println(mulOnVec);
         System.out.println();
 
-        System.out.println("A matrix created from an array of vectors:");
+        System.out.println("A matrixArray created from an array of vectors:");
         Vector[] vectors = {new Vector(new double[]{1, 4, 2}), new Vector(new double[]{3, 6, 7})};
         Matrix matrix4 = new Matrix(vectors);
         System.out.println(matrix4);
 
-        System.out.println("Let's add the matrix 2 and 3 statically:");
-        Matrix matrix5 = Matrix.getSum(matrix2, matrix3);
+        System.out.println("Let's add the matrixArray 3 and 3 statically:");
+        Matrix matrix5 = Matrix.getSum(matrix3, matrix3);
         System.out.println(matrix5);
         System.out.println();
 
-        System.out.println("Subtract matrix 3 from matrix 2 (statically):");
-        Matrix matrix6 = Matrix.getDifference(matrix2, matrix3);
+        System.out.println("Subtract matrixArray 3 from matrixArray 3 (statically):");
+        Matrix matrix6 = Matrix.getDifference(matrix3, matrix3);
         System.out.println(matrix6);
         System.out.println();
 
-        System.out.println("Let's add matrix 3 to matrix 2:");
-        matrix2.add(matrix3);
-        System.out.println("Now matrix 2 has the form:");
-        System.out.println(matrix2);
+        System.out.println("Let's add matrixArray 3 to matrixArray 3:");
+        matrix3.add(matrix3);
+        System.out.println("Now matrixArray 3 has the form:");
+        System.out.println(matrix3);
         System.out.println();
 
-        System.out.println("Now we subtract matrix 3 from the new matrix 2:");
-        matrix2.subtract(matrix3);
-        System.out.println("Now matrix 2 has the form: ");
-        System.out.println(matrix2);
+        System.out.println("Now we subtract matrixArray 3 from the new matrixArray 3:");
+        matrix3.subtract(matrix3);
+        System.out.println("Now matrixArray 3 has the form: ");
+        System.out.println(matrix3);
         System.out.println();
 
-        System.out.println("Multiply the matrix (unit) by the matrix 3:");
+        System.out.println(matrix3);
+        System.out.println("Multiply the matrixArray (unit) by the matrixArray 3:");
         matrix1 = new Matrix(new double[][]{
-                {1, 0, 0, 0},
+                {5, 0, 0, 6},
                 {0, 1, 0, 0},
-                {0, 0, 1, 0},
-                {0, 0, 0, 1}
+                {8, 0, 1, 0},
+                {0, 2, 0, 1}
         });
 
-        Matrix matrix7 = Matrix.getProduct(matrix1, matrix3);
+        Matrix matrix8 = new Matrix(new double[][]{
+                {5, 0, 4, 1},
+                {0, 1, 0, 0},
+                {5, 0, 4, 0},
+                {0, 8, 0, 1}
+        });
+
+        Matrix matrix7 = Matrix.getProduct(matrix1, matrix8);
         System.out.println(matrix7);
     }
 }
