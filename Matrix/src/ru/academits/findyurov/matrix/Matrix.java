@@ -2,7 +2,6 @@ package ru.academits.findyurov.matrix;
 
 import ru.academits.findyurov.vector.Vector;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
 
 // import static ru.academits.findyurov.vector.Vector.getScalarProduct;
@@ -133,114 +132,52 @@ public class Matrix {
 
     public void transpose() {
         int columnsQuantity = getColumnsCount();
-        System.out.println(rows.length);
-        System.out.println(rows[0].getSize());
+        int rowsQuantity = getRowsQuantity();
 
+        /*
         System.out.println("Matrix");
+        for (Vector row : rows) {
+            System.out.println(Arrays.toString(new Vector[]{row}));
+        }
+        */ //вывод основной матрицы
+
+
+        Vector[] vec;
+        vec = new Vector[columnsQuantity];
+
+        for (int i = 0; i < getRowsQuantity(); ++i) {
+            vec[i] = new Vector(getRowsQuantity());
+        }
+
+        for (int i = 0; i < getColumnsCount(); i++) {
+            vec[i] = getColumn(i);
+        }
+
+        /*
+        System.out.println("Matrix2");
+
+        for (Vector row : vec) {
+            System.out.println(Arrays.toString(new Vector[]{row}));
+        }*/ //вывод матрицы
+
+        rows = new Vector[vec.length];//меняем размер основной матрицы
+
+        for (int i = 0; i < vec.length; ++i) {
+            rows[i] = new Vector(vec[0].getSize()); //меняем размеры векторов
+        }
+
+        for (int i = 0; i <= getColumnsCount(); i++) { //меняем основной массив векторов
+            rows[i] = vec[i];
+        }
+
+        /*System.out.println("rows");
+
         for (Vector row : rows) {
             System.out.println(Arrays.toString(new Vector[]{row}));
         }
 
         System.out.println();
-
-        /*
-        System.out.println("Columns");
-        for (int i = 0; i <= rows.length; i++) {
-            System.out.println(getColumn(i));
-        }*/
-
-        System.out.println();
-        //rows[3] = getColumn(4);
-
-        Matrix mat2 = new Matrix(rows);
-
-        System.out.println("Mat2");
-        for (Vector row : mat2.rows) {
-            System.out.println(Arrays.toString(new Vector[]{row}));
-        }
-
-        System.out.println();
-
-        for (int i = 0; i < rows.length; i++) {
-            mat2.rows[i] = getColumn(i);
-        }
-
-        System.out.println("Trans matrix");
-        for (Vector row : mat2.rows) {
-            System.out.println(Arrays.toString(new Vector[]{row}));
-        }
-        System.out.println();
-
-        /*
-        Vector[] rows2;
-        Matrix matrix = new Matrix(getColumnsCount(), rows.length);
-        for (int i = 0; i < matrix.rows.length; i++) {
-            rows2 = new Vector[]{getColumn(i)};
-
-            for (int j = 0; j < matrix.rows[i].getSize(); j++) {
-                rows[i].setCoordinate(j, rows2[i].getCoordinate(j));
-
-                /*
-                System.out.println("rowss");
-                System.out.println(Arrays.toString(new Vector[]{rows[i]}));
-
-                System.out.println("rows2");
-                System.out.println(Arrays.toString(rows2));
-
-            }
-        }*/
-/*
-        String[][] mat = new String[getColumnsCount()][rows.length];
-
-        System.out.println(mat.length);
-        System.out.println(mat[0].length);
-
-        for (int i = 0; i < mat.length; i++) {
-            for (int j = 0; j < mat[0].length; j++) {
-                mat[i][j] = String.valueOf(rows[i].getCoordinate(j));
-                mat[j][i] = String.valueOf(rows[i].getCoordinate(i));
-            }
-        }
-
-
-/*
- Matrix composition = new Matrix(rowCount1, rowCount2);
-
-        for (int i = 0; i < rowCount1; ++i) {
-            for (int j = 0; j < rowCount2; ++j) {
-                composition.rows[i].setCoordinate(j, getScalarProduct(matrix1.rows[i], matrix2.getColumn(j)));
-            }
-        }
-
-        for (int i = 0; i < str.length; i++) {
-            for (int j = 0; j < str[0].length; j++) {
-                str[i][j] = String.valueOf(rows[j].getCoordinate(i));
-                str[j][i] = String.valueOf(rows[i].getCoordinate(j));
-                /*
-                rows[i].setCoordinate(j, rows[i].getCoordinate(i));
-                rows[j].setCoordinate(i, temp);
-                 */
-        // }
-        // }
-
-        /*
-        for (int i = 0; i < getColumnsCount(); i++) {
-            for (int j = 0; i < rows.length; j++) {
-                double temp = rows[j].getCoordinate(i);
-                rows[j].setCoordinate(i, rows[i].getCoordinate(j));
-                rows[i].setCoordinate(j, temp);
-            }
-        }
-
-/*
-        for (int i = 0; i < rows.length; ++i) {
-            for (int j = 0; j < getColumnsCount(); ++j) {
-                double temp = rows[i].getCoordinate(j);
-                rows[i].setCoordinate(j, rows[j].getCoordinate(i));
-                rows[j].setCoordinate(i, temp);
-            }
-        }
- */
+         */ //обычная печать матрицы
     }
 
     public void multiplyByScalar(double scalar) {
