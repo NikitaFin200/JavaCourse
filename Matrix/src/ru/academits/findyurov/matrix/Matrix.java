@@ -181,8 +181,8 @@ public class Matrix {
     }
 
     public void multiplyByScalar(double scalar) {
-        for (Vector string : rows) {
-            string.multiplyByScalar(scalar);
+        for (Vector row : rows) {
+            row.multiplyByScalar(scalar);
         }
     }
 
@@ -192,9 +192,9 @@ public class Matrix {
 
         /*
         if (rowsQuantity != columnsQuantity) {
-            throw new UnsupportedOperationException("Determinant can be computed from the elements of a square matrix only. quantityRows = " + rowsQuantity + ", quantityColumns = " + columnsQuantity);
-        }
-         */
+            throw new UnsupportedOperationException("Determinant can be computed from the elements of a square matrix only. rowsQuantity = "
+                    + rowsQuantity + ", quantityColumns = " + columnsQuantity);
+        }*/
 
         if (rowsQuantity == 1) {
             return new Vector(rows[0]).getCoordinate(0);
@@ -253,13 +253,13 @@ public class Matrix {
     public String toString() {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("{");
-        int size = rows.length - 1;
+        int maximalIndex = rows.length - 1;
 
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < maximalIndex; i++) {
             stringBuilder.append(rows[i]).append(", ");
         }
 
-        stringBuilder.append(rows[size]).append("}");
+        stringBuilder.append(rows[maximalIndex]).append("}");
         return stringBuilder.toString();
     }
 
@@ -267,12 +267,10 @@ public class Matrix {
         int rowsQuantity = rows.length;
         int columnsQuantity = getColumnsCount();
 
-        if (rowsQuantity != vector.getSize()) {
-            throw new IllegalArgumentException("The rows quantity does not match the size. rowsQuantity = " + rowsQuantity);
-        }
-
-        if (columnsQuantity != vector.getSize()) {
-            throw new IllegalArgumentException("The number of columns does not match the size. columnsQuantity = " + columnsQuantity);
+        if (rowsQuantity != vector.getSize() && columnsQuantity != vector.getSize()) {
+            throw new IllegalArgumentException("The rows quantity does not match the size. rowsQuantity = "
+                    + rowsQuantity + " columnsQuantity = " + columnsQuantity +
+                    " vector size = " + vector.getSize());
         }
 
         Vector multiplyResult = new Vector(rowsQuantity);

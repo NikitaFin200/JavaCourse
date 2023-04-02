@@ -73,8 +73,8 @@ public class Main {
         System.out.println("Multiplying a matrix by a vector");
         Vector vector = new Vector(new double[]{0, 0, 0, 1});
         System.out.println(vector + ":");
-        //Vector mulOnVec = matrix2.multiply(vector);
-        //System.out.println(mulOnVec.toString());
+        Vector mulOnVec = matrix2.multiply(vector);
+        System.out.println(mulOnVec);
         System.out.println();
 
         System.out.println("A matrix created from an array of vectors:");
