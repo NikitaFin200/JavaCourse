@@ -136,10 +136,42 @@ public class Matrix {
         System.out.println(rows.length);
         System.out.println(rows[0].getSize());
 
+        System.out.println("Matrix");
         for (Vector row : rows) {
             System.out.println(Arrays.toString(new Vector[]{row}));
         }
 
+        System.out.println();
+
+        /*
+        System.out.println("Columns");
+        for (int i = 0; i <= rows.length; i++) {
+            System.out.println(getColumn(i));
+        }*/
+
+        System.out.println();
+        //rows[3] = getColumn(4);
+
+        Matrix mat2 = new Matrix(rows);
+
+        System.out.println("Mat2");
+        for (Vector row : mat2.rows) {
+            System.out.println(Arrays.toString(new Vector[]{row}));
+        }
+
+        System.out.println();
+
+        for (int i = 0; i < rows.length; i++) {
+            mat2.rows[i] = getColumn(i);
+        }
+
+        System.out.println("Trans matrix");
+        for (Vector row : mat2.rows) {
+            System.out.println(Arrays.toString(new Vector[]{row}));
+        }
+        System.out.println();
+
+        /*
         Vector[] rows2;
         Matrix matrix = new Matrix(getColumnsCount(), rows.length);
         for (int i = 0; i < matrix.rows.length; i++) {
@@ -154,9 +186,9 @@ public class Matrix {
 
                 System.out.println("rows2");
                 System.out.println(Arrays.toString(rows2));
-                 */
+
             }
-        }
+        }*/
 /*
         String[][] mat = new String[getColumnsCount()][rows.length];
 
