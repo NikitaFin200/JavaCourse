@@ -73,10 +73,10 @@ public class Triangle implements Shape {
         double side2Length = getSide2Length();
         double side3Length = getSide3Length();
 
-        double halfMeter = (side1Length + side2Length + side3Length) / 2;
+        double halfPerimeter = (side1Length + side2Length + side3Length) / 2;
 
-        return Math.sqrt(halfMeter * (halfMeter - side1Length) * (halfMeter - getSide2Length())
-                * (halfMeter - getSide3Length()));
+        return Math.sqrt(halfPerimeter * (halfPerimeter - side1Length) * (halfPerimeter - getSide2Length())
+                * (halfPerimeter - getSide3Length()));
     }
 
     @Override
@@ -115,7 +115,7 @@ public class Triangle implements Shape {
 
     @Override
     public String toString() {
-        return "Triangle: " + x1 + "; " + y1 + "), ("
+        return "Triangle:(" + x1 + "; " + y1 + "), ("
                 + x2 + "; " + y2 + "), (" + x3 + "; " + y3 + ")";
     }
 

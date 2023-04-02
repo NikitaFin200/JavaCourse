@@ -17,7 +17,7 @@ public class Main {
         }
 
         if (shapes.length == 0) {
-            throw new IllegalArgumentException("Array size is 0");
+            throw new IllegalArgumentException("Array size is 0. The array must be >= 2.");
         }
 
         Arrays.sort(shapes, new ShapeAreaComparator());
@@ -30,12 +30,9 @@ public class Main {
             throw new IllegalArgumentException("There is no array");
         }
 
-        if (shapes.length == 0) {
-            throw new IllegalArgumentException("Array size is 0");
-        }
-
-        if (shapes.length == 1) {
-            throw new IllegalArgumentException("Array size is 1");
+        if (shapes.length == 0 || shapes.length == 1) {
+            throw new IllegalArgumentException("Array size is incorrect and is equal to = " + shapes.length
+                    + "The array must be >= 2.");
         }
 
         Arrays.sort(shapes, new ShapePerimeterComparator());
