@@ -2,8 +2,6 @@ package ru.academits.findyurov.matrix;
 
 import ru.academits.findyurov.vector.Vector;
 
-// import static ru.academits.findyurov.vector.Vector.getScalarProduct;
-
 public class Matrix {
     private Vector[] rows;
 
@@ -187,12 +185,6 @@ public class Matrix {
     public double getDeterminant() {
         int rowsQuantity = rows.length;
         int columnsQuantity = getColumnsCount();
-
-        /*
-        if (rowsQuantity != columnsQuantity) {
-            throw new UnsupportedOperationException("Determinant can be computed from the elements of a square matrix only. rowsQuantity = "
-                    + rowsQuantity + ", quantityColumns = " + columnsQuantity);
-        }*/
 
         if (rowsQuantity == 1) {
             return new Vector(rows[0]).getCoordinate(0);
