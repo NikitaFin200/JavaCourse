@@ -2,26 +2,23 @@ package ru.academits.findyurov.matrix;
 
 import ru.academits.findyurov.vector.Vector;
 
-import static ru.academits.findyurov.vector.Vector.getScalarProduct;
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
+// import static ru.academits.findyurov.vector.Vector.getScalarProduct;
 
 public class Matrix {
-    private final Vector[] rows;
+    private Vector[] rows;
 
     public Matrix(int rowsQuantity, int columnsQuantity) {
-        if (rowsQuantity < 0) {
-            throw new IllegalArgumentException("The number of rows cannot be less than 0.The number must be greater than 0. Your value = " + rowsQuantity);
+        if (rowsQuantity < 0 || rowsQuantity == 0) {
+            throw new IllegalArgumentException("Incorrect rows quantity." +
+                    "The number must be greater than 0. Your value = " + rowsQuantity);
         }
 
-        if (rowsQuantity == 0) {
-            throw new IllegalArgumentException("The number of rows is 0.The number must be greater than 0. Your value = " + rowsQuantity);
-        }
-
-        if (columnsQuantity < 0) {
-            throw new IllegalArgumentException("The number of columns cannot be less than 0.The number must be greater than 0. Your value = " + rowsQuantity);
-        }
-
-        if (columnsQuantity == 0) {
-            throw new IllegalArgumentException("The number of columns is 0.The number must be greater than 0. Your value = " + rowsQuantity);
+        if (columnsQuantity < 0 || columnsQuantity == 0) {
+            throw new IllegalArgumentException("Incorrect columns quantity." +
+                    "The number must be greater than 0. Your value = " + rowsQuantity);
         }
 
         rows = new Vector[rowsQuantity];
@@ -40,24 +37,20 @@ public class Matrix {
     }
 
     public Matrix(double[][] array) {
-        /*if (array.length == 0) {
-            throw new IllegalArgumentException("Number of rows is 0");
-        }*/
+        if (array.length == 0) {
+            throw new IllegalArgumentException("It is not possible to create a matrix with a zero size.");
+        }
 
         rows = new Vector[array.length];
 
         int columnsQuantity = 0;
 
         for (double[] row : array) {
-            /*if (string.length == 0) {
-                throw new IllegalArgumentException("Cannot create a row of matrix of size 0");
-            }*/
+            if (row.length == 0) {
+                throw new IllegalArgumentException("Rows quantity must be greater than 0.");
+            }
             if (row.length > columnsQuantity) {
                 columnsQuantity = row.length;
-            }
-
-            if (columnsQuantity == 0) {
-                throw new IllegalArgumentException("Number of columns is 0");
             }
         }
 
@@ -86,18 +79,18 @@ public class Matrix {
         }
     }
 
-    public int getRowsCount() {
+    public int getRowsQuantity() {
         return rows.length;
     }
 
     public int getColumnsCount() {
         return rows[0].getSize();
-        //return rows[getRowsCount() - 1].getSize();
+        //return rows[getRowsQuantity() - 1].getSize();
     }
 
     public Vector getRow(int index) {
         if (index < 0 || index >= rows.length) {
-            throw new ArrayIndexOutOfBoundsException("Illegal index of rows. Your index = " + index + ". Minimal index = 0. "
+            throw new IllegalArgumentException("Illegal index of row. Your index = " + index + ". Minimal index = 0. "
                     + " Maximal index = " + (rows.length - 1));
         }
 
@@ -106,12 +99,12 @@ public class Matrix {
 
     public void setRow(int index, Vector vector) {
         if (index < 0 || index >= rows.length) {
-            throw new ArrayIndexOutOfBoundsException("Illegal index of rows. Your index = "
+            throw new IllegalArgumentException("Illegal index of row. Your index = "
                     + index + ". Minimal index = 0. "
                     + " Maximal index = " + (rows.length - 1));
         }
 
-        if (!(vector.getLength() != (rows.length))) {
+        if (vector.getSize() != rows.length) {
             throw new IllegalArgumentException("The sizes are not equal");
         }
 
@@ -124,8 +117,8 @@ public class Matrix {
 
     public Vector getColumn(int index) {
         if (index < 0 || index >= getColumnsCount()) {
-            throw new ArrayIndexOutOfBoundsException("Illegal index of rows. Your index = " + index + ". Minimal index = 0. "
-                    + " Maximal index = " + (rows.length - 1));
+            throw new IllegalArgumentException("Illegal index of row. Your index = " + index
+                    + ". Minimal index = 0. " + " Maximal index = " + (getColumnsCount() - 1));
         }
 
         int rowsQuantity = rows.length;
@@ -142,6 +135,10 @@ public class Matrix {
         int columnsQuantity = getColumnsCount();
         System.out.println(rows.length);
         System.out.println(rows[0].getSize());
+
+        for (Vector row : rows) {
+            System.out.println(Arrays.toString(new Vector[]{row}));
+        }
 
         Vector[] rows2;
         Matrix matrix = new Matrix(getColumnsCount(), rows.length);
@@ -302,7 +299,7 @@ public class Matrix {
         int columnsQuantity = getColumnsCount();
 
         if (rowsQuantity != vector.getSize()) {
-            throw new IllegalArgumentException("The number of rows does not match the size. rowsQuantity = " + rowsQuantity);
+            throw new IllegalArgumentException("The rows quantity does not match the size. rowsQuantity = " + rowsQuantity);
         }
 
         if (columnsQuantity != vector.getSize()) {
@@ -349,8 +346,8 @@ public class Matrix {
 
     public static Matrix getDifference(Matrix matrix1, Matrix matrix2) {
         if (matrix1.rows.length != matrix2.rows.length || matrix1.getColumnsCount() != matrix2.getColumnsCount()) {
-            throw new IllegalArgumentException("Matrix size error. matrix1.getRowsCount() = " + matrix1.rows.length +
-                    "matrix2.getRowsCount()" + matrix2.rows.length +
+            throw new IllegalArgumentException("Matrix size error. matrix1.getRowsQuantity() = " + matrix1.rows.length +
+                    "matrix2.getRowsQuantity()" + matrix2.rows.length +
                     "matrix1.getColumnsCount()" + matrix1.getColumnsCount() +
                     "matrix2.getColumnsCount()" + matrix1.getColumnsCount());
         }
@@ -363,8 +360,8 @@ public class Matrix {
 
     public static Matrix getSum(Matrix matrix1, Matrix matrix2) {
         if (matrix1.rows.length != matrix2.rows.length || matrix1.getColumnsCount() != matrix2.getColumnsCount()) {
-            throw new IllegalArgumentException("Matrix size error. matrix1.getRowsCount() = " + matrix1.rows.length +
-                    "matrix2.getRowsCount()" + matrix2.rows.length +
+            throw new IllegalArgumentException("Matrix size error. matrix1.getRowsQuantity() = " + matrix1.rows.length +
+                    "matrix2.getRowsQuantity()" + matrix2.rows.length +
                     "matrix1.getColumnsCount()" + matrix1.getColumnsCount() +
                     "matrix2.getColumnsCount()" + matrix1.getColumnsCount());
         }
@@ -381,8 +378,8 @@ public class Matrix {
         int columnsCount2 = matrix2.getColumnsCount();
 
         if (rowsCount1 != rowsCount2 || columnsCount1 != columnsCount2) {
-            throw new IllegalArgumentException("Matrix size error. matrix1.getRowsCount() = " + matrix1.rows.length +
-                    "matrix2.getRowsCount() = " + matrix2.rows.length +
+            throw new IllegalArgumentException("Matrix size error. matrix1.getRowsQuantity() = " + matrix1.rows.length +
+                    "matrix2.getRowsQuantity() = " + matrix2.rows.length +
                     "matrix1.getColumnsCount()" + matrix1.getColumnsCount() +
                     "matrix2.getColumnsCount()" + matrix2.getColumnsCount());
         }
@@ -391,7 +388,7 @@ public class Matrix {
 
         for (int i = 0; i < rowsCount1; ++i) {
             for (int j = 0; j < rowsCount2; ++j) {
-                composition.rows[i].setCoordinate(j, getScalarProduct(matrix1.rows[i], matrix2.getColumn(j)));
+                composition.rows[i].setCoordinate(j, Vector.getScalarProduct(matrix1.rows[i], matrix2.getColumn(j)));
             }
         }
 
