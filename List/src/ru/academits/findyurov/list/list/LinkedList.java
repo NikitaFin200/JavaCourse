@@ -94,6 +94,21 @@ public class LinkedList<T> {
         }
     }
 
+    public void print(LinkedList<T> list) {
+        ListNode<T> currentNode = head;
+
+        if (head != null) {
+            System.out.println(head.getValue());
+        }
+
+        if (currentNode != null) {
+            while (currentNode.getNext() != null) {
+                currentNode = currentNode.getNext();
+                System.out.println(currentNode.getValue());
+            }
+        }
+    }
+
     public void remove(int index) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Index " + index + " is out of bounds");
@@ -123,5 +138,100 @@ public class LinkedList<T> {
         node.setNext(head);
         head = node;
         size++;
+    }
+
+    public void enterElementForIndex(int index, T value) {
+        if (index < 0 || index >= size) {
+            throw new IndexOutOfBoundsException("Index " + index + " is out of bounds");
+        }
+
+        ListNode<T> currentNode = head;
+        ListNode<T> previousNode = null;
+        ListNode<T> node = new ListNode<>(value);
+
+        int currentIndex = 0;
+
+        if (index == 0) {
+            enterElementFirst(value);
+            return;
+        }
+
+
+        while (currentNode.getNext() != null) {
+            if (currentIndex == index) {
+                previousNode.setNext(node);
+                node.setNext(currentNode);
+                size++;
+                return;
+            }
+
+            previousNode = currentNode;
+            currentNode = currentNode.getNext();
+            currentIndex++;
+        }
+    }
+
+    public boolean removeAtValue(T value) {
+        ListNode<T> currentNode = head;
+        ListNode<T> previousNode = null;
+
+        if (head.getValue() == value) {
+            head = currentNode.getNext();
+            return true;
+        }
+
+        while (currentNode.getNext() != null) {
+            if (currentNode.getValue() == value) {
+                previousNode.setNext(currentNode.getNext());
+                return true;
+            }
+
+            previousNode = currentNode;
+            currentNode = currentNode.getNext();
+        }
+
+        return false;
+    }
+
+    public T removeFirstElement() {
+        ListNode<T> currentNode = head;
+        ListNode<T> nextNode = currentNode.getNext();
+
+        if (head == null) {
+            return null;
+        }
+
+        T value = currentNode.getValue();
+        remove(0);
+        size--;
+
+        return value;
+    }
+
+    public void reverse() {
+        ListNode<T> currentNode = head;
+        ListNode<T> previousNode = null;
+
+        while (currentNode.getNext() != null) {
+            ListNode<T> nextNode = currentNode.getNext();
+            currentNode.setNext(previousNode);
+            previousNode = currentNode;
+            currentNode = nextNode;
+        }
+
+        head = previousNode;
+    }
+
+    public LinkedList<T> copy() {
+        LinkedList<T> newList = new LinkedList<>();
+
+        ListNode<T> currentNode = head;
+
+        while (currentNode != null) {
+            newList.enterElementFirst(currentNode.getValue());
+            currentNode = currentNode.getNext();
+        }
+
+        return newList;
     }
 }

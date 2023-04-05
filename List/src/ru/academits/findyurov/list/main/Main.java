@@ -32,8 +32,39 @@ public class Main {
         lis.print();
         System.out.println();
 
-        System.out.println("first");
+        System.out.println("Adding an element to the beginning");
         lis.enterElementFirst("rr");
         lis.print();
+        System.out.println();
+
+        System.out.println("Adding an item by index");
+        lis.enterElementForIndex(1, 1000);
+        lis.print();
+        System.out.println();
+
+        System.out.println("Deleting a node by value");
+        System.out.print("Answer: ");
+        System.out.println(lis.removeAtValue(2));
+        lis.print();
+        System.out.println();
+
+        System.out.println("Remove first element");
+        System.out.println(lis.removeFirstElement());
+        System.out.println();
+        lis.print();
+        System.out.println();
+
+        lis.addValue(222);
+        lis.addValue(221);
+        lis.addValue(234);
+        System.out.println();
+
+        System.out.println("Reverse");
+        lis.reverse();
+        lis.print();
+        System.out.println();
+
+        System.out.println("Copy");
+        lis.print(lis.copy());
     }
 }
