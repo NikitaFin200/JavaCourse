@@ -1,4 +1,0 @@
-Name,Age,Gender
-Nikita,20,Female
-Bob,30,Male
-Charlie,40,Male
