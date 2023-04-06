@@ -25,9 +25,10 @@ public class Main {
         numbersList1.add(10);
         numbersList1.add(11);
         numbersList1.add(20);
-        numbersList1.add(30);
+        numbersList1.add(31);
         numbersList1.add(33);
         numbersList1.add(53);
+        numbersList1.add(null);
         numbersList1.add(100);
         numbersList1.add(101);
         numbersList1.add(102);
@@ -47,7 +48,7 @@ public class Main {
         System.out.println();
 
         System.out.println("List without repeat numbers:");
-        System.out.println(getNewListWithoutRepeats(numbersList2));
+        System.out.println(getListWithoutRepeats(numbersList2));
         System.out.println();
     }
 
@@ -55,56 +56,43 @@ public class Main {
         ArrayList<String> outputStringsList = new ArrayList<>();
 
         BufferedReader reader = new BufferedReader(new FileReader(fileName));
-        String string;
+        String line;
 
-        while ((string = reader.readLine()) != null) {
-            /* if (string.equals("")) {
-                continue;
-            }*/
-
-            outputStringsList.add(string);
+        while ((line = reader.readLine()) != null) {
+            outputStringsList.add(line);
         }
 
         return outputStringsList;
     }
 
     public static void deleteEvenNumbers(ArrayList<Integer> numbers) {
-
-        /*Iterator<Integer> iterator = list.iterator();
-
-        while (iterator.hasNext()) {
-            int t = iterator.next();
-            t = t % 2;
-
-            if (t == 0) {
-                iterator.remove();
-            }
-        }
-         */
-
         for (int i = 0; i < numbers.size(); i++) {
+            if (numbers.get(i) == null) {
+                numbers.remove(numbers.get(i));
+            }
+
             if (numbers.get(i) % 2 == 0) {
-                numbers.set(i, null);
+                numbers.remove(numbers.get(i));
             }
         }
-
-        numbers.removeIf(Objects::isNull);
     }
 
-    public static ArrayList<Integer> getNewListWithoutRepeats(ArrayList<Integer> list) {
-        ArrayList<Integer> withoutRepeatsList = new ArrayList<>();
+    public static ArrayList<Integer> getListWithoutRepeats(ArrayList<Integer> list) {
+        ArrayList<Integer> listWithoutRepeats = new ArrayList<>(list.size());
 
-        list.removeIf(Objects::isNull);
+        listWithoutRepeats.add(list.get(0));
 
-        withoutRepeatsList.add(list.get(0));
+        for (Integer num : list) {
+            if (num == null) {
+                continue;
+            }
 
-        for (int i = 1; i < list.size(); i++) {
-            if (!withoutRepeatsList.contains(list.get(i))) {
-                withoutRepeatsList.add(list.get(i));
+            if (!listWithoutRepeats.contains(num)) {
+                listWithoutRepeats.add(num);
             }
         }
 
-        return withoutRepeatsList;
+        return listWithoutRepeats;
     }
 }
 
