@@ -5,70 +5,67 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        ArrayList<ArrayList<String>> listString = new ArrayList<>();
+        ArrayList<String> stringsList = new ArrayList<>();
 
         try {
-            listString.add(getStringsFromFile("file.txt"));
+            stringsList.add(String.valueOf(getStringsFromFile("file.txt")));
         } catch (FileNotFoundException e) {
-            throw new IllegalArgumentException("Could not find the file");
+            throw new FileNotFoundException("Could not find the file");
         }
 
-        System.out.println("List from file");
-        System.out.println(listString);
+        System.out.println("Strings from file:");
+        System.out.println(stringsList);
 
-        System.out.println("The list is cleared");
-        listString.clear();
+        System.out.println("The stringsList is cleared");
+        stringsList.clear();
         System.out.println();
 
-        ArrayList<Integer> listInteger = new ArrayList<>();
+        ArrayList<Integer> numbersList1 = new ArrayList<>();
 
-        listInteger.add(10);
-        listInteger.add(11);
-        listInteger.add(20);
-        listInteger.add(30);
-        listInteger.add(33);
-        listInteger.add(53);
-        listInteger.add(100);
-        listInteger.add(101);
-        listInteger.add(102);
+        numbersList1.add(10);
+        numbersList1.add(11);
+        numbersList1.add(20);
+        numbersList1.add(30);
+        numbersList1.add(33);
+        numbersList1.add(53);
+        numbersList1.add(100);
+        numbersList1.add(101);
+        numbersList1.add(102);
 
-        System.out.println("The list that has just been filled in");
-        System.out.println(listInteger);
+        System.out.println("The stringsList that has just been filled in:");
+        System.out.println(numbersList1);
         System.out.println();
 
-        deleteEvenNumbers(listInteger);
-        System.out.println("List without even numbers");
-        System.out.println(listInteger);
+        deleteEvenNumbers(numbersList1);
+        System.out.println("List without even numbers:");
+        System.out.println(numbersList1);
         System.out.println();
 
-        ArrayList<Integer> listInteger2 = new ArrayList<>(Arrays.asList(1, 2, 3, 2, 10, 14, 10));
-        System.out.println("List with integer numbers, that are repeated");
-        System.out.println(listInteger2);
+        ArrayList<Integer> numbersList2 = new ArrayList<>(Arrays.asList(1, 2, 3, 2, 10, 14, 10));
+        System.out.println("List with integer numbers, that are repeated:");
+        System.out.println(numbersList2);
         System.out.println();
 
-        System.out.println("List without repeat numbers");
-        System.out.println(getNewListWithoutRepeats(listInteger2));
+        System.out.println("List without repeat numbers:");
+        System.out.println(getNewListWithoutRepeats(numbersList2));
         System.out.println();
     }
 
-    public static ArrayList<String> getStringsFromFile(String acceptedLine) throws IOException {
-        ArrayList<String> exitLine = new ArrayList<>();
+    public static ArrayList<String> getStringsFromFile(String fileName) throws IOException {
+        ArrayList<String> outputStringsList = new ArrayList<>();
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(acceptedLine))) {
-            String string;
+        BufferedReader reader = new BufferedReader(new FileReader(fileName));
+        String string;
 
-            while ((string = reader.readLine()) != null) {
-                if (string.equals("")) {
-                    continue;
-                }
+        while ((string = reader.readLine()) != null) {
+            /* if (string.equals("")) {
+                continue;
+            }*/
 
-                exitLine.add(string);
-            }
-        } catch (FileNotFoundException e) {
-            throw new IllegalArgumentException("Could not find the file");
+            outputStringsList.add(string);
         }
 
-        return exitLine;
+        return outputStringsList;
     }
 
     public static void deleteEvenNumbers(ArrayList<Integer> numbers) {
