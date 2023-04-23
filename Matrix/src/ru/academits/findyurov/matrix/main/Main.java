@@ -22,14 +22,14 @@ public class Main {
         System.out.println(matrix2);
         System.out.println();
 
-        System.out.println(matrix2.getColumnsCount());
+        System.out.println(matrix2.getColumnsQuantity());
         System.out.println(matrix2.getColumn(2));
 
         System.out.println("3");
         System.out.println(matrix2.getRow(3));
 
         System.out.println("determinant = " + matrix2.getDeterminant());
-        System.out.println("Columns quantity = " + matrix2.getColumnsCount());
+        System.out.println("Columns quantity = " + matrix2.getColumnsQuantity());
         System.out.println("Rows quantity = " + matrix2.getRowsQuantity());
         System.out.println();
 
@@ -43,7 +43,10 @@ public class Main {
         System.out.println(matrix2.getRow(i));
         System.out.println();
 
-        double[] value = {20, 2, 5, 6};
+        System.out.println("matrix2");
+        System.out.println(matrix2);
+
+        double[] value = {20, 2, 5, 6, 7};
         System.out.println("let's change it to" + Arrays.toString(value));
         matrix2.setRow(i, new Vector(value));
         System.out.println(matrix2.getRow(0));
@@ -70,7 +73,7 @@ public class Main {
         System.out.println();
 
         System.out.println("Multiplying a matrixArray by a vector");
-        Vector vector = new Vector(new double[]{0, 3, 0, 1});
+        Vector vector = new Vector(new double[]{0, 3, 0, 1, 4});
         System.out.println(vector + ":");
         Vector mulOnVec = matrix2.multiply(vector);
         System.out.println(mulOnVec);
@@ -99,7 +102,7 @@ public class Main {
 
         System.out.println("Now we subtract matrixArray 3 from the new matrixArray 3:");
         matrix3.subtract(matrix3);
-        System.out.println("Now matrixArray 3 has the form: ");
+        System.out.println("Now matrixArray 3 has the form:");
         System.out.println(matrix3);
         System.out.println();
 
