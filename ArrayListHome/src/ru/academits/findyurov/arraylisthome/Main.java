@@ -8,9 +8,9 @@ public class Main {
         ArrayList<String> stringsList = new ArrayList<>();
 
         try {
-            stringsList.add(String.valueOf(getStringsFromFile("file.txt")));
+            stringsList = getStringsFromFile("file.txt");
         } catch (FileNotFoundException e) {
-            throw new FileNotFoundException("Could not find the file");
+            System.out.println("Could not find the file");
         }
 
         System.out.println("Strings from file:");
@@ -20,18 +20,8 @@ public class Main {
         stringsList.clear();
         System.out.println();
 
-        ArrayList<Integer> numbersList1 = new ArrayList<>();
-
-        numbersList1.add(10);
-        numbersList1.add(11);
-        numbersList1.add(20);
-        numbersList1.add(31);
-        numbersList1.add(33);
-        numbersList1.add(53);
-        numbersList1.add(null);
-        numbersList1.add(100);
-        numbersList1.add(101);
-        numbersList1.add(102);
+        ArrayList<Integer> numbersList1 = new ArrayList<>(Arrays.asList(10, 20, 20, 40, 50, 60, 11, 21, 31, 30, 33, 53,
+                55, 100, 100, 101, 102));
 
         System.out.println("The stringsList that has just been filled in:");
         System.out.println(numbersList1);
@@ -53,26 +43,30 @@ public class Main {
     }
 
     public static ArrayList<String> getStringsFromFile(String fileName) throws IOException {
-        ArrayList<String> outputStringsList = new ArrayList<>();
+        ArrayList<String> stringsList = new ArrayList<>();
 
-        BufferedReader reader = new BufferedReader(new FileReader(fileName));
-        String line;
+        try (BufferedReader line = new BufferedReader(new FileReader(fileName))) {
+            String string;
 
-        while ((line = reader.readLine()) != null) {
-            outputStringsList.add(line);
+            while ((string = line.readLine()) != null) {
+                stringsList.add(string);
+            }
         }
 
-        return outputStringsList;
+        return stringsList;
     }
 
     public static void deleteEvenNumbers(ArrayList<Integer> numbers) {
         for (int i = 0; i < numbers.size(); i++) {
             if (numbers.get(i) == null) {
-                numbers.remove(numbers.get(i));
+                throw new IllegalArgumentException("There is an empty cell in the list.");
             }
 
-            if (numbers.get(i) % 2 == 0) {
-                numbers.remove(numbers.get(i));
+            int number = numbers.get(i) % 2;
+
+            if (number == 0) {
+                numbers.remove(i);
+                i--;
             }
         }
     }
@@ -80,15 +74,9 @@ public class Main {
     public static ArrayList<Integer> getListWithoutRepeats(ArrayList<Integer> list) {
         ArrayList<Integer> listWithoutRepeats = new ArrayList<>(list.size());
 
-        listWithoutRepeats.add(list.get(0));
-
-        for (Integer num : list) {
-            if (num == null) {
-                continue;
-            }
-
-            if (!listWithoutRepeats.contains(num)) {
-                listWithoutRepeats.add(num);
+        for (Integer number : list) {
+            if (!listWithoutRepeats.contains(number)) {
+                listWithoutRepeats.add(number);
             }
         }
 
