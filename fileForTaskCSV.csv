@@ -1,4 +1,4 @@
 Name,Age,Gender
-Nikita,20,M
-Bob,30,M
-Kate,40,W
+Alice,"25",Female
+Bob,,Male
+Charlie,40,Male
