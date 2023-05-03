@@ -23,7 +23,7 @@ public class Main {
         ArrayList<Integer> numbersList1 = new ArrayList<>(Arrays.asList(10, 20, 20, 40, 50, 60, 11, 21, 31, 30, 33, 53,
                 55, 100, 100, 101, 102));
 
-        System.out.println("The stringsList that has just been filled in:");
+        System.out.println("The ArrayList that has just been filled in:");
         System.out.println(numbersList1);
         System.out.println();
 
@@ -42,13 +42,13 @@ public class Main {
         System.out.println();
     }
 
-    public static ArrayList<String> getStringsFromFile(String fileName) throws IOException {
+    public static ArrayList<String> getStringsFromFile(String line) throws IOException {
         ArrayList<String> stringsList = new ArrayList<>();
 
-        try (BufferedReader line = new BufferedReader(new FileReader(fileName))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(line))) {
             String string;
 
-            while ((string = line.readLine()) != null) {
+            while ((string = reader.readLine()) != null) {
                 stringsList.add(string);
             }
         }
@@ -62,9 +62,7 @@ public class Main {
                 throw new IllegalArgumentException("There is an empty cell in the list.");
             }
 
-            int number = numbers.get(i) % 2;
-
-            if (number == 0) {
+            if (numbers.get(i) % 2 == 0) {
                 numbers.remove(i);
                 i--;
             }
