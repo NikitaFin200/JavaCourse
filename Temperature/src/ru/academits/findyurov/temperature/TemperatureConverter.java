@@ -1,3 +1,5 @@
+package ru.academits.findyurov.temperature;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
