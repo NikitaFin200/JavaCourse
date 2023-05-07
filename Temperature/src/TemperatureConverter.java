@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Main extends JFrame implements ActionListener {
+public class TemperatureConverter extends JFrame implements ActionListener {
 
     private JPanel mainPanel;
     private JTextField inputField;
@@ -12,7 +12,7 @@ public class Main extends JFrame implements ActionListener {
     private JComboBox<String> fromComboBox;
     private JComboBox<String> toComboBox;
 
-    public Main() {
+    public TemperatureConverter() {
         setTitle("Temperature Converter");
         setSize(300, 150);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -45,8 +45,10 @@ public class Main extends JFrame implements ActionListener {
         try {
             double temp = Double.parseDouble(inputField.getText());
             double result;
+
             String fromScale = (String) fromComboBox.getSelectedItem();
             String toScale = (String) toComboBox.getSelectedItem();
+
             if (fromScale.equals("Celsius")) {
                 if (toScale.equals("Fahrenheit")) {
                     result = (temp * 9 / 5) + 32;
@@ -66,6 +68,7 @@ public class Main extends JFrame implements ActionListener {
                     result = temp * 9 / 5 - 459.67;
                 }
             }
+
             resultLabel.setText(String.format("%.2f", result) + " " + toScale);
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(this, "Invalid input!");
@@ -73,6 +76,6 @@ public class Main extends JFrame implements ActionListener {
     }
 
     public static void main(String[] args) {
-        new Main();
+        new TemperatureConverter();
     }
 }
